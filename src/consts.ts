@@ -16,5 +16,26 @@ export const AUTHOR = {
   name: 'Kavindu Perera',
   jobTitle: 'Software Engineer',
   worksFor: 'Wiley Global Technology',
-  email: '', // add when ready
+  /** Set when ready to show a public mailto on /contact/ */
+  email: '' as string,
 } as const;
+
+/** Signature strengths for About — keep short and memorable */
+export const STRENGTHS = [
+  {
+    title: 'Backend systems',
+    detail: 'APIs, service boundaries, and data flows that stay clear under change.',
+  },
+  {
+    title: 'Java & Spring',
+    detail: 'Production Spring Boot services, messaging, and integration patterns.',
+  },
+  {
+    title: 'Cloud-native pipelines',
+    detail: 'Object storage, events, and workers — from upload to processed asset.',
+  },
+  {
+    title: 'Cross-boundary types',
+    detail: 'Keeping frontend and backend contracts aligned without manual drift.',
+  },
+] as const;
