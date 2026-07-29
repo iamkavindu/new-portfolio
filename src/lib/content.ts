@@ -1,7 +1,8 @@
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
 
 export type BlogEntry = CollectionEntry<'blogs'>;
 export type ProjectEntry = CollectionEntry<'projects'>;
+export type GuideEntry = CollectionEntry<'guides'>;
 
 /** Published blog posts, newest first. */
 export async function getPublishedPosts(): Promise<BlogEntry[]> {
@@ -20,6 +21,37 @@ export async function getPublishedProjects(): Promise<ProjectEntry[]> {
 /** Featured published projects, newest first. */
 export async function getFeaturedProjects(): Promise<ProjectEntry[]> {
   return (await getPublishedProjects()).filter((p) => p.data.featured);
+}
+
+/** Published guides, title A–Z. */
+export async function getPublishedGuides(): Promise<GuideEntry[]> {
+  return (await getCollection('guides', ({ data }) => !data.draft)).sort((a, b) =>
+    a.data.title.localeCompare(b.data.title)
+  );
+}
+
+export async function getGuide(id: string): Promise<GuideEntry | undefined> {
+  try {
+    const entry = await getEntry('guides', id);
+    if (!entry || entry.data.draft) return undefined;
+    return entry;
+  } catch {
+    return undefined;
+  }
+}
+
+/** Published posts in a guide, ordered by orderInGuide then pubDate ascending. */
+export async function getPostsForGuide(guideId: string): Promise<BlogEntry[]> {
+  const posts = await getCollection(
+    'blogs',
+    ({ data }) => !data.draft && data.guide === guideId
+  );
+  return posts.sort((a, b) => {
+    const ao = a.data.orderInGuide ?? Number.MAX_SAFE_INTEGER;
+    const bo = b.data.orderInGuide ?? Number.MAX_SAFE_INTEGER;
+    if (ao !== bo) return ao - bo;
+    return a.data.pubDate.valueOf() - b.data.pubDate.valueOf();
+  });
 }
 
 export function formatDate(
