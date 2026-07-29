@@ -62,8 +62,8 @@ const breadcrumbSchema = {
   description={project.data.description}
   image={project.data.heroImage ?? DEFAULT_OG_IMAGE}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(workSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(workSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
   <article class="mx-auto max-w-3xl px-4 sm:px-6 py-16">
     <header class="mb-10">

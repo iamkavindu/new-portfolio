@@ -1,5 +1,6 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
 const blogs = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blogs' }),
@@ -20,7 +21,7 @@ const projects = defineCollection({
     title: z.string(),
     description: z.string(),
     pubDate: z.coerce.date(),
-    // Zod 4 (Astro 6+): top-level z.url() replaces z.string().url()
+    // Zod 4: top-level z.url() replaces z.string().url()
     repo: z.url().optional(),
     demo: z.url().optional(),
     stack: z.array(z.string()).default([]),
