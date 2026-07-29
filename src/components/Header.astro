@@ -1,0 +1,75 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import { SITE_TITLE } from '../consts';
+
+const nav = [
+  { label: 'Writing', href: '/blog/' },
+  { label: 'Work', href: '/work/' },
+  { label: 'About', href: '/#about' },
+  { label: 'Contact', href: '/#contact' },
+];
+
+const pathname = Astro.url.pathname;
+---
+
+<header
+  class="sticky top-0 z-40 border-b border-surface-200/80 dark:border-surface-800/80 bg-surface-50/80 dark:bg-surface-950/80 backdrop-blur-md"
+>
+  <div class="mx-auto max-w-3xl px-4 sm:px-6 h-14 flex items-center justify-between">
+    <a
+      href="/"
+      class="font-semibold text-surface-900 dark:text-surface-50 hover:text-accent-600 dark:hover:text-accent-400 transition-colors"
+    >
+      {SITE_TITLE}
+    </a>
+
+    <nav class="hidden sm:flex items-center gap-6" aria-label="Main">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              'text-sm font-medium transition-colors',
+              pathname.startsWith(item.href.replace(/\/$/, '')) && item.href !== '/#about' && item.href !== '/#contact'
+                ? 'text-accent-600 dark:text-accent-400'
+                : 'text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100',
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <ThemeToggle />
+    </nav>
+
+    <div class="flex sm:hidden items-center gap-3">
+      <ThemeToggle />
+      <details class="relative">
+        <summary
+          class="list-none cursor-pointer p-2 -mr-2 rounded-md text-surface-600 dark:text-surface-400 hover:bg-surface-200 dark:hover:bg-surface-800"
+          aria-label="Open menu"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <line x1="4" y1="6" x2="20" y2="6"></line>
+            <line x1="4" y1="12" x2="20" y2="12"></line>
+            <line x1="4" y1="18" x2="20" y2="18"></line>
+          </svg>
+        </summary>
+        <div
+          class="absolute right-0 mt-2 w-44 rounded-lg border border-surface-200 dark:border-surface-800 bg-surface-50 dark:bg-surface-900 shadow-lg py-2"
+        >
+          {
+            nav.map((item) => (
+              <a
+                href={item.href}
+                class="block px-4 py-2 text-sm text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800"
+              >
+                {item.label}
+              </a>
+            ))
+          }
+        </div>
+      </details>
+    </div>
+  </div>
+</header>
