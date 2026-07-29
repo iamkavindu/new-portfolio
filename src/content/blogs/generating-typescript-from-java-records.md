@@ -9,6 +9,11 @@ tags:
   - TypeScript
   - Maven
   - Tooling
+takeaways:
+  - "Annotate Java records with @TsRecord; the Maven plugin emits TypeScript next to the source on generate-sources."
+  - "SOURCE retention means zero runtime overhead — the annotation never ships in production bytecode."
+  - "exportName and asType let frontend naming and type-vs-interface style diverge from Java without manual copies."
+  - "Build-time generation next to the source beats a separate codegen service for day-to-day Maven teams."
 ---
 
 If you've ever worked on a full-stack application with a Java backend and a TypeScript frontend, you know the pain of keeping data models in sync. You define a beautifully structured DTO in Java, only to duplicate the exact same structure manually as an interface in your frontend codebase. It's tedious, error-prone, and a prime suspect for sneaky runtime bugs when an API contract changes.
