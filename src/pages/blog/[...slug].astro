@@ -3,12 +3,15 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
 import Takeaways from '../../components/Takeaways.astro';
+import RelatedPosts from '../../components/RelatedPosts.astro';
 import { AUTHOR, SITE_URL } from '../../consts';
 import {
   formatDate,
   readingTimeLabel,
   readingTimeMinutes,
   getGuide,
+  getRelatedPosts,
+  getRelatedProjects,
 } from '../../lib/content';
 import { ogImagePath } from '../../lib/og';
 
@@ -31,6 +34,8 @@ const wasUpdated =
 const readLabel = readingTimeLabel(post.body);
 const readMins = readingTimeMinutes(post.body);
 const guide = post.data.guide ? await getGuide(post.data.guide) : undefined;
+const relatedPosts = await getRelatedPosts(post, 3);
+const relatedProjects = await getRelatedProjects(post, 2);
 
 /** Prefer custom hero; else build-time OG PNG */
 const shareImage = post.data.heroImage ?? ogImagePath('blog', post.id);
@@ -196,5 +201,7 @@ const breadcrumbSchema = {
     <div id="article-body" class="prose scroll-mt-20">
       <Content />
     </div>
+
+    <RelatedPosts posts={relatedPosts} projects={relatedProjects} guide={guide} />
   </article>
 </BaseLayout>

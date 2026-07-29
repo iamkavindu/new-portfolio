@@ -1,0 +1,92 @@
+---
+import type { BlogEntry, GuideEntry, ProjectEntry } from '../lib/content';
+import PostCard from './PostCard.astro';
+
+interface Props {
+  posts: BlogEntry[];
+  projects?: ProjectEntry[];
+  guide?: GuideEntry;
+}
+
+const { posts, projects = [], guide } = Astro.props;
+const hasPosts = posts.length > 0;
+const hasProjects = projects.length > 0;
+const show = hasPosts || hasProjects || Boolean(guide);
+---
+
+{
+  show && (
+    <aside
+      class="mt-16 pt-12 border-t border-surface-200 dark:border-surface-800"
+      aria-label="Related content"
+    >
+      {
+        guide && (
+          <p class="mb-8 text-sm text-surface-600 dark:text-surface-400">
+            This post is part of{' '}
+            <a
+              href={`/blog/guides/${guide.id}/`}
+              class="font-medium text-accent-600 dark:text-accent-400 hover:underline"
+            >
+              {guide.data.title}
+            </a>
+            — see the full guide for the ordered series.
+          </p>
+        )
+      }
+
+      {
+        hasPosts && (
+          <section aria-labelledby="related-posts-heading">
+            <h2
+              id="related-posts-heading"
+              class="text-xl font-semibold text-surface-900 dark:text-surface-50 mb-6"
+            >
+              Related writing
+            </h2>
+            <ul class="space-y-8">
+              {posts.map((post) => (
+                <li>
+                  <PostCard post={post} variant="home" />
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+
+      {
+        hasProjects && (
+          <section
+            class:list={[hasPosts && 'mt-12']}
+            aria-labelledby="related-work-heading"
+          >
+            <h2
+              id="related-work-heading"
+              class="text-xl font-semibold text-surface-900 dark:text-surface-50 mb-6"
+            >
+              Related work
+            </h2>
+            <ul class="space-y-6">
+              {projects.map((project) => (
+                <li>
+                  <a
+                    href={`/work/${project.id}/`}
+                    class="group block"
+                  >
+                    <h3 class="font-semibold text-surface-900 dark:text-surface-50 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">
+                      {project.data.title}
+                    </h3>
+                    <p class="mt-1 text-sm text-surface-600 dark:text-surface-400 leading-relaxed">
+                      {project.data.description}
+                    </p>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+    </aside>
+  )
+}

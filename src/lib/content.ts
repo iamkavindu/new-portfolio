@@ -54,6 +54,66 @@ export async function getPostsForGuide(guideId: string): Promise<BlogEntry[]> {
   });
 }
 
+/**
+ * Related posts for an article.
+ * Score: same guide (+100) + shared tag count (+10 each) + slight recency boost.
+ */
+export async function getRelatedPosts(
+  current: BlogEntry,
+  limit = 3
+): Promise<BlogEntry[]> {
+  const all = await getPublishedPosts();
+  const tagSet = new Set(current.data.tags.map((t) => t.toLowerCase()));
+
+  const scored = all
+    .filter((p) => p.id !== current.id)
+    .map((p) => {
+      let score = 0;
+      if (
+        current.data.guide &&
+        p.data.guide &&
+        current.data.guide === p.data.guide
+      ) {
+        score += 100;
+      }
+      for (const tag of p.data.tags) {
+        if (tagSet.has(tag.toLowerCase())) score += 10;
+      }
+      // Prefer newer among equals (fraction of a point)
+      score += p.data.pubDate.valueOf() / 1e15;
+      return { post: p, score };
+    })
+    .filter((x) => x.score >= 10) // at least one shared tag or same guide
+    .sort((a, b) => b.score - a.score);
+
+  return scored.slice(0, limit).map((x) => x.post);
+}
+
+/**
+ * Projects related to a post via overlapping stack ↔ tags (case-insensitive).
+ */
+export async function getRelatedProjects(
+  current: BlogEntry,
+  limit = 2
+): Promise<ProjectEntry[]> {
+  const tagSet = new Set(current.data.tags.map((t) => t.toLowerCase()));
+  if (tagSet.size === 0) return [];
+
+  const projects = await getPublishedProjects();
+  const scored = projects
+    .map((p) => {
+      let score = 0;
+      for (const tech of p.data.stack) {
+        if (tagSet.has(tech.toLowerCase())) score += 1;
+      }
+      return { project: p, score };
+    })
+    .filter((x) => x.score > 0)
+    .sort((a, b) => b.score - a.score);
+
+  return scored.slice(0, limit).map((x) => x.project);
+}
+
 export function formatDate(
   date: Date,
   style: 'short' | 'long' = 'long'
