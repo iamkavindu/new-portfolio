@@ -15,7 +15,7 @@ export const SOCIAL = {
 export const AUTHOR = {
   name: 'Kavindu Perera',
   jobTitle: 'Software Engineer',
-  worksFor: 'Wiley Global Technology',
+  worksFor: 'Virtusa',
   /** Set when ready to show a public mailto on /contact/ */
   email: '' as string,
 } as const;
