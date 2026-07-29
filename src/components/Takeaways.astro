@@ -1,0 +1,28 @@
+---
+interface Props {
+  items: string[];
+}
+
+const { items } = Astro.props;
+---
+
+{
+  items.length > 0 && (
+    <aside
+      class="not-prose mb-10 rounded-lg border border-accent-500/30 bg-accent-500/5 dark:bg-accent-500/10 px-5 py-4"
+      aria-labelledby="takeaways-heading"
+    >
+      <h2
+        id="takeaways-heading"
+        class="text-sm font-semibold uppercase tracking-wide text-accent-700 dark:text-accent-400 mb-3"
+      >
+        Key takeaways
+      </h2>
+      <ul class="space-y-2 text-sm text-surface-700 dark:text-surface-300 list-disc pl-5">
+        {items.map((item) => (
+          <li class="leading-relaxed">{item}</li>
+        ))}
+      </ul>
+    </aside>
+  )
+}
