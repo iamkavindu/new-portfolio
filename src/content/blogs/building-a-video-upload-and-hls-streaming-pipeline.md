@@ -4,6 +4,8 @@ description: "How I designed stream-app: presigned S3 uploads, SNS/SQS event fan
 pubDate: 2026-06-28
 heroImage: "/images/blogs/stream-app/hero.png"
 draft: false
+guide: video-streaming
+orderInGuide: 1
 tags:
   - Spring Boot
   - AWS
