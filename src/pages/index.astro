@@ -1,22 +1,12 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getPublishedPosts, getFeaturedProjects } from '../lib/content';
 import { SOCIAL, AUTHOR } from '../consts';
 
-const posts = (await getCollection('blogs', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
-
-const projects = (await getCollection('projects', ({ data }) => !data.draft && data.featured))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
-function formatDate(date: Date) {
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
-}
+const posts = (await getPublishedPosts()).slice(0, 3);
+const projects = await getFeaturedProjects();
 ---
 
 <BaseLayout>
@@ -40,12 +30,10 @@ function formatDate(date: Date) {
         Read the writing
       </a>
       <a
-        href={SOCIAL.github}
-        target="_blank"
-        rel="noopener noreferrer"
+        href="/work/"
         class="inline-flex items-center rounded-lg border border-surface-300 dark:border-surface-700 px-5 py-2.5 text-sm font-medium text-surface-700 dark:text-surface-300 hover:border-accent-500 hover:text-accent-600 dark:hover:text-accent-400 transition-colors"
       >
-        GitHub
+        Selected work
       </a>
     </div>
   </section>
@@ -69,10 +57,12 @@ function formatDate(date: Date) {
   </section>
 
   <!-- Writing -->
-  <section class="border-t border-surface-200 dark:border-surface-800">
+  <section class="border-t border-surface-200 dark:border-surface-800" aria-labelledby="writing-heading">
     <div class="mx-auto max-w-3xl px-4 sm:px-6 py-16">
       <div class="flex items-baseline justify-between mb-8">
-        <h2 class="text-2xl font-semibold text-surface-900 dark:text-surface-50">Writing</h2>
+        <h2 id="writing-heading" class="text-2xl font-semibold text-surface-900 dark:text-surface-50">
+          Writing
+        </h2>
         <a href="/blog/" class="text-sm font-medium text-accent-600 dark:text-accent-400 hover:underline">
           View all →
         </a>
@@ -85,25 +75,7 @@ function formatDate(date: Date) {
           <ul class="space-y-8">
             {posts.map((post) => (
               <li>
-                <article>
-                  <time
-                    datetime={post.data.pubDate.toISOString()}
-                    class="text-sm text-surface-500 dark:text-surface-500"
-                  >
-                    {formatDate(post.data.pubDate)}
-                  </time>
-                  <h3 class="mt-1 text-lg font-semibold">
-                    <a
-                      href={`/blog/${post.id}/`}
-                      class="text-surface-900 dark:text-surface-50 hover:text-accent-600 dark:hover:text-accent-400 transition-colors"
-                    >
-                      {post.data.title}
-                    </a>
-                  </h3>
-                  <p class="mt-1.5 text-surface-600 dark:text-surface-400 leading-relaxed">
-                    {post.data.description}
-                  </p>
-                </article>
+                <PostCard post={post} variant="home" />
               </li>
             ))}
           </ul>
@@ -113,10 +85,12 @@ function formatDate(date: Date) {
   </section>
 
   <!-- Selected work -->
-  <section class="border-t border-surface-200 dark:border-surface-800">
+  <section class="border-t border-surface-200 dark:border-surface-800" aria-labelledby="work-heading">
     <div class="mx-auto max-w-3xl px-4 sm:px-6 py-16">
       <div class="flex items-baseline justify-between mb-8">
-        <h2 class="text-2xl font-semibold text-surface-900 dark:text-surface-50">Selected work</h2>
+        <h2 id="work-heading" class="text-2xl font-semibold text-surface-900 dark:text-surface-50">
+          Selected work
+        </h2>
         <a href="/work/" class="text-sm font-medium text-accent-600 dark:text-accent-400 hover:underline">
           View all →
         </a>
@@ -129,30 +103,7 @@ function formatDate(date: Date) {
           <ul class="space-y-8">
             {projects.map((project) => (
               <li>
-                <article>
-                  <h3 class="text-lg font-semibold">
-                    <a
-                      href={`/work/${project.id}/`}
-                      class="text-surface-900 dark:text-surface-50 hover:text-accent-600 dark:hover:text-accent-400 transition-colors"
-                    >
-                      {project.data.title}
-                    </a>
-                  </h3>
-                  <p class="mt-1.5 text-surface-600 dark:text-surface-400 leading-relaxed">
-                    {project.data.description}
-                  </p>
-                  {
-                    project.data.stack.length > 0 && (
-                      <ul class="mt-3 flex flex-wrap gap-2">
-                        {project.data.stack.map((tag) => (
-                          <li class="text-xs font-medium px-2.5 py-1 rounded-full bg-surface-200 dark:bg-surface-800 text-surface-600 dark:text-surface-400">
-                            {tag}
-                          </li>
-                        ))}
-                      </ul>
-                    )
-                  }
-                </article>
+                <ProjectCard project={project} variant="home" />
               </li>
             ))}
           </ul>

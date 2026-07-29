@@ -1,0 +1,45 @@
+---
+import type { BlogEntry } from '../lib/content';
+import { formatDate, readingTimeLabel } from '../lib/content';
+
+interface Props {
+  post: BlogEntry;
+  /** Compact layout for home; fuller meta on /blog/ */
+  variant?: 'home' | 'list';
+}
+
+const { post, variant = 'list' } = Astro.props;
+const dateStyle = variant === 'home' ? 'short' : 'long';
+---
+
+<article class="group">
+  <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-surface-500 dark:text-surface-500">
+    <time datetime={post.data.pubDate.toISOString()}>
+      {formatDate(post.data.pubDate, dateStyle)}
+    </time>
+    <span aria-hidden="true">·</span>
+    <span>{readingTimeLabel(post.body)}</span>
+  </div>
+  <h3 class:list={['mt-1 font-semibold', variant === 'home' ? 'text-lg' : 'text-xl']}>
+    <a
+      href={`/blog/${post.id}/`}
+      class="text-surface-900 dark:text-surface-50 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors"
+    >
+      {post.data.title}
+    </a>
+  </h3>
+  <p class="mt-1.5 text-surface-600 dark:text-surface-400 leading-relaxed">
+    {post.data.description}
+  </p>
+  {
+    variant === 'list' && post.data.tags.length > 0 && (
+      <ul class="mt-3 flex flex-wrap gap-2">
+        {post.data.tags.map((tag) => (
+          <li class="text-xs font-medium px-2.5 py-1 rounded-full bg-surface-200 dark:bg-surface-800 text-surface-600 dark:text-surface-400">
+            {tag}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</article>

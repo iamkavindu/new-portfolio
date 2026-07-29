@@ -1,10 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getPublishedProjects } from '../../lib/content';
 
-const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const projects = await getPublishedProjects();
 ---
 
 <BaseLayout title="Work" description="Selected projects and case studies by Kavindu Perera.">
@@ -23,30 +22,7 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
         <ul class="space-y-10">
           {projects.map((project) => (
             <li>
-              <article>
-                <h2 class="text-xl font-semibold">
-                  <a
-                    href={`/work/${project.id}/`}
-                    class="text-surface-900 dark:text-surface-50 hover:text-accent-600 dark:hover:text-accent-400 transition-colors"
-                  >
-                    {project.data.title}
-                  </a>
-                </h2>
-                <p class="mt-2 text-surface-600 dark:text-surface-400 leading-relaxed">
-                  {project.data.description}
-                </p>
-                {
-                  project.data.stack.length > 0 && (
-                    <ul class="mt-3 flex flex-wrap gap-2">
-                      {project.data.stack.map((tag) => (
-                        <li class="text-xs font-medium px-2.5 py-1 rounded-full bg-surface-200 dark:bg-surface-800 text-surface-600 dark:text-surface-400">
-                          {tag}
-                        </li>
-                      ))}
-                    </ul>
-                  )
-                }
-              </article>
+              <ProjectCard project={project} variant="list" />
             </li>
           ))}
         </ul>
