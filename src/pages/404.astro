@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Page not found" description="The page you requested does not exist." noindex>
+  <div class="mx-auto max-w-3xl px-4 sm:px-6 py-24 text-center">
+    <p class="text-sm font-medium text-accent-600 dark:text-accent-400 mb-3">404</p>
+    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-surface-900 dark:text-surface-50">
+      Page not found
+    </h1>
+    <p class="mt-4 text-surface-600 dark:text-surface-400 max-w-md mx-auto">
+      That URL doesn’t match anything on this site. Try the home page, writing, or work.
+    </p>
+    <div class="mt-8 flex flex-wrap justify-center gap-4">
+      <a
+        href="/"
+        class="inline-flex items-center rounded-lg bg-accent-600 hover:bg-accent-500 text-white px-5 py-2.5 text-sm font-medium transition-colors"
+      >
+        Home
+      </a>
+      <a
+        href="/blog/"
+        class="inline-flex items-center rounded-lg border border-surface-300 dark:border-surface-700 px-5 py-2.5 text-sm font-medium text-surface-700 dark:text-surface-300 hover:border-accent-500 transition-colors"
+      >
+        Writing
+      </a>
+      <a
+        href="/work/"
+        class="inline-flex items-center rounded-lg border border-surface-300 dark:border-surface-700 px-5 py-2.5 text-sm font-medium text-surface-700 dark:text-surface-300 hover:border-accent-500 transition-colors"
+      >
+        Work
+      </a>
+    </div>
+  </div>
+</BaseLayout>
