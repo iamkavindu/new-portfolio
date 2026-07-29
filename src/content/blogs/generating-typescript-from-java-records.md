@@ -4,6 +4,8 @@ description: "A practical guide to keeping your frontend and backend types in sy
 pubDate: 2026-04-06
 heroImage: "/images/blogs/java-ts-gen/hero.jpg"
 draft: false
+guide: java-typescript
+orderInGuide: 1
 tags:
   - Java
   - TypeScript
