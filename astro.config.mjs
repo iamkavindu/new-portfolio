@@ -5,6 +5,9 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://iamkavindu.dev',
   trailingSlash: 'always',
+  // Astro 7 defaults to compressHTML: 'jsx' (strips spaces between inline tags).
+  // Keep HTML-aware compression so meta rows like "date · read time" stay spaced.
+  compressHTML: true,
   integrations: [
     sitemap({
       filter: (page) => !page.includes('/404'),

@@ -20,8 +20,9 @@ const projects = defineCollection({
     title: z.string(),
     description: z.string(),
     pubDate: z.coerce.date(),
-    repo: z.string().url().optional(),
-    demo: z.string().url().optional(),
+    // Zod 4 (Astro 6+): top-level z.url() replaces z.string().url()
+    repo: z.url().optional(),
+    demo: z.url().optional(),
     stack: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
