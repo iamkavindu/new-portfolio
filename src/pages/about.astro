@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { AUTHOR, SOCIAL, STRENGTHS } from '../consts';
+---
+
+<BaseLayout
+  title="About"
+  description={`About ${AUTHOR.name} — ${AUTHOR.jobTitle} focused on Java, Spring Boot, and backend systems.`}
+>
+  <div class="mx-auto max-w-3xl px-4 sm:px-6 py-16">
+    <p class="text-sm font-medium text-accent-600 dark:text-accent-400 mb-3 tracking-wide uppercase">
+      About
+    </p>
+    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-surface-900 dark:text-surface-50 text-balance">
+      {AUTHOR.name}
+    </h1>
+    <p class="mt-2 text-lg text-surface-600 dark:text-surface-400">
+      {AUTHOR.jobTitle} · {AUTHOR.worksFor}
+    </p>
+
+    <div class="prose mt-10">
+      <p>
+        I design and build backend systems with a bias toward clarity: service boundaries you can
+        explain, APIs that age well, and pipelines where state and ownership are explicit.
+      </p>
+      <p>
+        At <strong>{AUTHOR.worksFor}</strong> I work primarily with <strong>Java</strong> and
+        <strong>Spring Boot</strong> on production services. Outside of work I dig into architecture,
+        tooling, and the concrete problems that show up when you ship — media pipelines, event-driven
+        flows, and keeping types honest across the full stack.
+      </p>
+      <p>
+        I write about what I build so the trade-offs stay visible. Case studies and posts on this site
+        are the best place to see how I approach a problem end to end.
+      </p>
+    </div>
+
+    <section class="mt-14" aria-labelledby="strengths-heading">
+      <h2
+        id="strengths-heading"
+        class="text-xl font-semibold text-surface-900 dark:text-surface-50 mb-6"
+      >
+        Focus areas
+      </h2>
+      <ul class="grid gap-4 sm:grid-cols-2">
+        {
+          STRENGTHS.map((s) => (
+            <li class="rounded-lg border border-surface-200 dark:border-surface-800 p-4">
+              <h3 class="font-semibold text-surface-900 dark:text-surface-50">{s.title}</h3>
+              <p class="mt-1.5 text-sm text-surface-600 dark:text-surface-400 leading-relaxed">
+                {s.detail}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="mt-14 border-t border-surface-200 dark:border-surface-800 pt-10">
+      <h2 class="text-xl font-semibold text-surface-900 dark:text-surface-50 mb-4">
+        Keep exploring
+      </h2>
+      <ul class="flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium">
+        <li>
+          <a href="/work/" class="text-accent-600 dark:text-accent-400 hover:underline">
+            Selected work →
+          </a>
+        </li>
+        <li>
+          <a href="/blog/" class="text-accent-600 dark:text-accent-400 hover:underline">
+            Writing →
+          </a>
+        </li>
+        <li>
+          <a href="/contact/" class="text-accent-600 dark:text-accent-400 hover:underline">
+            Contact →
+          </a>
+        </li>
+        <li>
+          <a
+            href={SOCIAL.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-accent-600 dark:text-accent-400 hover:underline"
+          >
+            GitHub →
+          </a>
+        </li>
+      </ul>
+    </section>
+  </div>
+</BaseLayout>

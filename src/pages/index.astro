@@ -38,19 +38,20 @@ const projects = await getFeaturedProjects();
     </div>
   </section>
 
-  <!-- About -->
-  <section id="about" class="scroll-mt-20 border-t border-surface-200 dark:border-surface-800">
+  <!-- About teaser -->
+  <section class="border-t border-surface-200 dark:border-surface-800">
     <div class="mx-auto max-w-3xl px-4 sm:px-6 py-16">
-      <h2 class="text-2xl font-semibold text-surface-900 dark:text-surface-50 mb-6">About</h2>
+      <div class="flex items-baseline justify-between mb-6">
+        <h2 class="text-2xl font-semibold text-surface-900 dark:text-surface-50">About</h2>
+        <a href="/about/" class="text-sm font-medium text-accent-600 dark:text-accent-400 hover:underline">
+          More about me →
+        </a>
+      </div>
       <div class="prose">
         <p>
-          I'm a software engineer at <strong>{AUTHOR.worksFor}</strong>, focused on backend development
-          with <strong>Java</strong> and <strong>Spring Boot</strong>.
-        </p>
-        <p>
-          I care about systems that stay understandable under load: clear service boundaries,
-          event-driven flows, and APIs that are easy to evolve. Outside of work I write about
-          architecture, tooling, and the problems I run into building real systems.
+          Software engineer at <strong>{AUTHOR.worksFor}</strong>, focused on backend development with
+          <strong>Java</strong> and <strong>Spring Boot</strong>. I care about systems that stay
+          understandable under load — and I write about the trade-offs along the way.
         </p>
       </div>
     </div>
@@ -112,30 +113,27 @@ const projects = await getFeaturedProjects();
     </div>
   </section>
 
-  <!-- Contact -->
-  <section id="contact" class="scroll-mt-20 border-t border-surface-200 dark:border-surface-800">
+  <!-- Contact teaser -->
+  <section class="border-t border-surface-200 dark:border-surface-800">
     <div class="mx-auto max-w-3xl px-4 sm:px-6 py-16">
       <h2 class="text-2xl font-semibold text-surface-900 dark:text-surface-50 mb-4">Get in touch</h2>
       <p class="text-surface-600 dark:text-surface-400 mb-6 max-w-xl">
         Open to conversations about backend systems, open source, or interesting problems.
-        Reach me on LinkedIn or GitHub.
       </p>
       <div class="flex flex-wrap gap-4">
+        <a
+          href="/contact/"
+          class="inline-flex items-center rounded-lg bg-accent-600 hover:bg-accent-500 text-white px-5 py-2.5 text-sm font-medium transition-colors"
+        >
+          Contact
+        </a>
         <a
           href={SOCIAL.linkedin}
           target="_blank"
           rel="noopener noreferrer"
-          class="text-sm font-medium text-accent-600 dark:text-accent-400 hover:underline"
+          class="inline-flex items-center rounded-lg border border-surface-300 dark:border-surface-700 px-5 py-2.5 text-sm font-medium text-surface-700 dark:text-surface-300 hover:border-accent-500 transition-colors"
         >
-          LinkedIn →
-        </a>
-        <a
-          href={SOCIAL.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-sm font-medium text-accent-600 dark:text-accent-400 hover:underline"
-        >
-          GitHub →
+          LinkedIn
         </a>
       </div>
     </div>
