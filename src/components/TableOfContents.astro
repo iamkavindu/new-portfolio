@@ -1,0 +1,46 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+  /** Minimum number of h2/h3 entries before showing TOC (default 3) */
+  minItems?: number;
+}
+
+const { headings, minItems = 3 } = Astro.props;
+
+const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const show = items.length >= minItems;
+---
+
+{
+  show && (
+    <nav
+      class="not-prose mb-10 rounded-lg border border-surface-200 dark:border-surface-800 bg-surface-100/60 dark:bg-surface-900/40 px-5 py-4"
+      aria-labelledby="toc-heading"
+    >
+      <h2
+        id="toc-heading"
+        class="text-sm font-semibold uppercase tracking-wide text-surface-500 dark:text-surface-500 mb-3"
+      >
+        On this page
+      </h2>
+      <ol class="space-y-1.5 text-sm">
+        {items.map((h) => (
+          <li class:list={[h.depth === 3 && 'pl-4']}>
+            <a
+              href={`#${h.slug}`}
+              class="text-surface-700 dark:text-surface-300 hover:text-accent-600 dark:hover:text-accent-400 transition-colors"
+            >
+              {h.text}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )
+}

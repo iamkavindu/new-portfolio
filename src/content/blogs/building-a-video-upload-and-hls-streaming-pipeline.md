@@ -9,6 +9,12 @@ tags:
   - AWS
   - HLS
   - Architecture
+takeaways:
+  - "Presigned S3 uploads keep multi-gigabyte bytes out of the API path; PostgreSQL holds metadata and status."
+  - "Shared object-key conventions (uploadId prefixes) are the cross-service contract that prevents drift."
+  - "SNS fan-out lets status tracking and FFmpeg Lambda react to the same ObjectCreated event independently."
+  - "A single presigned manifest URL is not enough for private HLS playback — plan for signed cookies or a media proxy."
+  - "Nail the status enum and key layout first; queues, FFmpeg flags, and polling hang off those two decisions."
 ---
 
 Uploading a video file is easy. Turning that upload into a streamable asset — tracking state across services, deduplicating by content hash, transcoding to a browser-friendly format, and serving it securely — is where things get interesting.

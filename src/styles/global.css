@@ -65,11 +65,11 @@
   }
 
   .prose h2 {
-    @apply text-xl font-semibold text-surface-900 dark:text-surface-50 mt-10 mb-3;
+    @apply text-xl font-semibold text-surface-900 dark:text-surface-50 mt-10 mb-3 scroll-mt-24;
   }
 
   .prose h3 {
-    @apply text-lg font-semibold text-surface-900 dark:text-surface-50 mt-8 mb-2;
+    @apply text-lg font-semibold text-surface-900 dark:text-surface-50 mt-8 mb-2 scroll-mt-24;
   }
 
   .prose p {
@@ -106,5 +106,17 @@
 
   .prose hr {
     @apply my-8 border-surface-200 dark:border-surface-800;
+  }
+
+  .prose table {
+    @apply w-full text-sm mb-4 border-collapse;
+  }
+
+  .prose th {
+    @apply text-left font-semibold border-b border-surface-300 dark:border-surface-700 pb-2 pr-3;
+  }
+
+  .prose td {
+    @apply border-b border-surface-200 dark:border-surface-800 py-2 pr-3 align-top;
   }
 }

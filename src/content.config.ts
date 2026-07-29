@@ -12,6 +12,8 @@ const blogs = defineCollection({
     heroImage: z.string().optional(),
     draft: z.boolean().default(false),
     tags: z.array(z.string()).default([]),
+    /** Optional bullets shown as “Key takeaways” above the article body */
+    takeaways: z.array(z.string()).default([]),
   }),
 });
 
@@ -21,7 +23,6 @@ const projects = defineCollection({
     title: z.string(),
     description: z.string(),
     pubDate: z.coerce.date(),
-    // Zod 4: top-level z.url() replaces z.string().url()
     repo: z.url().optional(),
     demo: z.url().optional(),
     stack: z.array(z.string()).default([]),
