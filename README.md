@@ -8,7 +8,7 @@ Astro-based portfolio and blog for [Kavindu Perera](https://iamkavindu.dev).
 - **Tailwind CSS v4** — teal / slate design system
 - **TypeScript 5.9**
 - **Node.js ≥ 22.12** (required by Astro 6+)
-- **astro-og-canvas** — build-time Open Graph PNGs per post/project
+- **Satori + Sharp** — build-time Open Graph PNGs per post/project
 - Deploy: **Netlify**
 
 ## Development
@@ -48,10 +48,12 @@ See `src/content.config.ts` for frontmatter schema. Set `draft: true` to exclude
 
 ### Open Graph images
 
-- Generated at **build time** by `src/pages/og/[...route].ts` (`astro-og-canvas`).
+- Generated at **build time** by `src/pages/og/[...route].png.ts` (Satori → SVG → Sharp PNG).
 - Blog/work pages use the PNG unless `heroImage` is set in frontmatter.
 - Preview after build: open `dist/og/blog/<slug>.png` or hit the path in `astro preview`.
-- Build needs network once to fetch Inter TTF from jsDelivr (or change `fonts` in the OG route to local files).
+- Build needs network once to fetch Inter TTF from jsDelivr (cached in-process for the rest of the build).
+
+> **Why not `astro-og-canvas`?** Its peer range is Astro 5/6 only; this site is on Astro 7.
 
 ## Branches
 
