@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1542" height="1458" viewBox="0 0 1542 1458" role="img" aria-label="Video upload, transcode, and playback sequence">
+<rect width="100%" height="100%" fill="#faf8f3"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1c1917"/></marker></defs>
+<line x1="96" y1="132" x2="96" y2="1293.1999999999998" stroke="#a8a29e" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="246" y1="132" x2="246" y2="1293.1999999999998" stroke="#a8a29e" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="396" y1="132" x2="396" y2="1293.1999999999998" stroke="#a8a29e" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="546" y1="132" x2="546" y2="1293.1999999999998" stroke="#a8a29e" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="696" y1="132" x2="696" y2="1293.1999999999998" stroke="#a8a29e" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="846" y1="132" x2="846" y2="1293.1999999999998" stroke="#a8a29e" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="996" y1="132" x2="996" y2="1293.1999999999998" stroke="#a8a29e" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="1146" y1="132" x2="1146" y2="1293.1999999999998" stroke="#a8a29e" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="1296" y1="132" x2="1296" y2="1293.1999999999998" stroke="#a8a29e" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="1446" y1="132" x2="1446" y2="1293.1999999999998" stroke="#a8a29e" stroke-width="1.5" stroke-dasharray="4 4"/>
+<rect x="32" y="74" width="128" height="92" rx="6" fill="#3b82f655" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="96" y="120" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">Frontend</text>
+<rect x="182" y="74" width="128" height="92" rx="6" fill="#93c5fd55" stroke="#93c5fd" stroke-width="1.5"/>
+<text x="246" y="120" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">VideoController</text>
+<rect x="332" y="74" width="128" height="92" rx="6" fill="#22c55e55" stroke="#22c55e" stroke-width="1.5"/>
+<text x="396" y="120" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">PostgreSQL</text>
+<rect x="482" y="74" width="128" height="122" rx="6" fill="#f9731655" stroke="#f97316" stroke-width="1.5"/>
+<text x="546" y="135" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">streamapp-uploads</text>
+<rect x="632" y="74" width="128" height="122" rx="6" fill="#8b5cf655" stroke="#8b5cf6" stroke-width="1.5"/>
+<text x="696" y="135" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">video-upload-events</text>
+<rect x="782" y="74" width="128" height="92" rx="6" fill="#ef444455" stroke="#ef4444" stroke-width="1.5"/>
+<text x="846" y="120" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">v-proc-backend</text>
+<rect x="932" y="74" width="128" height="92" rx="6" fill="#eab30855" stroke="#eab308" stroke-width="1.5"/>
+<text x="996" y="120" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">v-proc-lambda</text>
+<rect x="1082" y="74" width="128" height="122" rx="6" fill="#86efac55" stroke="#86efac" stroke-width="1.5"/>
+<text x="1146" y="135" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">Transcode Lambda</text>
+<rect x="1232" y="74" width="128" height="122" rx="6" fill="#c4b5fd55" stroke="#c4b5fd" stroke-width="1.5"/>
+<text x="1296" y="135" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">streamapp-streams</text>
+<rect x="1382" y="74" width="128" height="122" rx="6" fill="#78716c55" stroke="#78716c" stroke-width="1.5"/>
+<text x="1446" y="135" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">v-transcode-done</text>
+<rect x="66" y="154" width="510" height="62" rx="6" fill="#eab30833" stroke="#eab308" stroke-width="1.5"/>
+<text x="321" y="185" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">1. Upload</text>
+<ellipse cx="96" cy="210" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="246" cy="210" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="246" cy="258" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="396" cy="258" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="246" cy="306" rx="5" ry="5" fill="#78716c33" stroke="#78716c" stroke-width="1.5"/>
+<ellipse cx="96" cy="306" rx="5" ry="5" fill="#78716c33" stroke="#78716c" stroke-width="1.5"/>
+<ellipse cx="96" cy="354" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="546" cy="354" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<rect x="516" y="394" width="660" height="62" rx="6" fill="#eab30833" stroke="#eab308" stroke-width="1.5"/>
+<text x="846" y="425" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">2. Transcode</text>
+<ellipse cx="546" cy="450" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="696" cy="450" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="696" cy="498" rx="5" ry="5" fill="#8b5cf633" stroke="#8b5cf6" stroke-width="1.5"/>
+<ellipse cx="846" cy="498" rx="5" ry="5" fill="#8b5cf633" stroke="#8b5cf6" stroke-width="1.5"/>
+<ellipse cx="696" cy="546" rx="5" ry="5" fill="#8b5cf633" stroke="#8b5cf6" stroke-width="1.5"/>
+<ellipse cx="996" cy="546" rx="5" ry="5" fill="#8b5cf633" stroke="#8b5cf6" stroke-width="1.5"/>
+<ellipse cx="846" cy="594" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="246" cy="594" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="246" cy="642" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="396" cy="642" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="996" cy="690" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="1146" cy="690" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="1146" cy="738" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="546" cy="738" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="1146" cy="786" rx="5" ry="5" fill="#f9731633" stroke="#f97316" stroke-width="1.5"/>
+<ellipse cx="1146" cy="811" rx="5" ry="5" fill="#f9731633" stroke="#f97316" stroke-width="1.5"/>
+<ellipse cx="1146" cy="841.2" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="1296" cy="841.2" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="1146" cy="889.2" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="1446" cy="889.2" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="1446" cy="937.1999999999999" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="246" cy="937.1999999999999" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="246" cy="985.1999999999999" rx="5" ry="5" fill="#22c55e33" stroke="#22c55e" stroke-width="1.5"/>
+<ellipse cx="396" cy="985.1999999999999" rx="5" ry="5" fill="#22c55e33" stroke="#22c55e" stroke-width="1.5"/>
+<rect x="66" y="1025.1999999999998" width="1260" height="62" rx="6" fill="#eab30833" stroke="#eab308" stroke-width="1.5"/>
+<text x="696" y="1056.1999999999998" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">3. Playback</text>
+<ellipse cx="96" cy="1081.1999999999998" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="246" cy="1081.1999999999998" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="96" cy="1129.1999999999998" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="246" cy="1129.1999999999998" rx="5" ry="5" fill="#1c191733" stroke="#1c1917" stroke-width="1.5"/>
+<ellipse cx="246" cy="1177.1999999999998" rx="5" ry="5" fill="#78716c33" stroke="#78716c" stroke-width="1.5"/>
+<ellipse cx="96" cy="1177.1999999999998" rx="5" ry="5" fill="#78716c33" stroke="#78716c" stroke-width="1.5"/>
+<ellipse cx="96" cy="1225.1999999999998" rx="5" ry="5" fill="#3b82f633" stroke="#3b82f6" stroke-width="1.5"/>
+<ellipse cx="1296" cy="1225.1999999999998" rx="5" ry="5" fill="#3b82f633" stroke="#3b82f6" stroke-width="1.5"/>
+<rect x="32" y="1303.1999999999998" width="128" height="92" rx="6" fill="#3b82f655" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="96" y="1349.1999999999998" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">Frontend</text>
+<rect x="182" y="1303.1999999999998" width="128" height="92" rx="6" fill="#93c5fd55" stroke="#93c5fd" stroke-width="1.5"/>
+<text x="246" y="1349.1999999999998" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">VideoController</text>
+<rect x="332" y="1303.1999999999998" width="128" height="92" rx="6" fill="#22c55e55" stroke="#22c55e" stroke-width="1.5"/>
+<text x="396" y="1349.1999999999998" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">PostgreSQL</text>
+<rect x="482" y="1303.1999999999998" width="128" height="122" rx="6" fill="#f9731655" stroke="#f97316" stroke-width="1.5"/>
+<text x="546" y="1364.1999999999998" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">streamapp-uploads</text>
+<rect x="632" y="1303.1999999999998" width="128" height="122" rx="6" fill="#8b5cf655" stroke="#8b5cf6" stroke-width="1.5"/>
+<text x="696" y="1364.1999999999998" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">video-upload-events</text>
+<rect x="782" y="1303.1999999999998" width="128" height="92" rx="6" fill="#ef444455" stroke="#ef4444" stroke-width="1.5"/>
+<text x="846" y="1349.1999999999998" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">v-proc-backend</text>
+<rect x="932" y="1303.1999999999998" width="128" height="92" rx="6" fill="#eab30855" stroke="#eab308" stroke-width="1.5"/>
+<text x="996" y="1349.1999999999998" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">v-proc-lambda</text>
+<rect x="1082" y="1303.1999999999998" width="128" height="122" rx="6" fill="#86efac55" stroke="#86efac" stroke-width="1.5"/>
+<text x="1146" y="1364.1999999999998" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">Transcode Lambda</text>
+<rect x="1232" y="1303.1999999999998" width="128" height="122" rx="6" fill="#c4b5fd55" stroke="#c4b5fd" stroke-width="1.5"/>
+<text x="1296" y="1364.1999999999998" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">streamapp-streams</text>
+<rect x="1382" y="1303.1999999999998" width="128" height="122" rx="6" fill="#78716c55" stroke="#78716c" stroke-width="1.5"/>
+<text x="1446" y="1364.1999999999998" text-anchor="middle" dominant-baseline="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" fill="#1c1917">v-transcode-done</text>
+<text x="32" y="52" font-family="Georgia,serif" font-size="20" fill="#1c1917">Video Upload → Transcode → Playback</text>
+<path d="M96 210 L 246 210" fill="none" stroke="#1c1917" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="171" y="202" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" fill="#44403c">POST /api/v1/videos (fileName, sha256Hex)</text>
+<path d="M246 258 L 396 258" fill="none" stroke="#1c1917" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="321" y="250" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" fill="#44403c">INSERT videos (AWAITING_UPLOAD)</text>
+<path d="M246 306 L 96 306" fill="none" stroke="#1c1917" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="171" y="298" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" fill="#44403c">↩ uploadId, presigned PUT URL</text>
+<path d="M96 354 L 546 354" fill="none" stroke="#1c1917" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="321" y="346" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" fill="#44403c">PUT raw MP4</text>
+<path d="M546 450 L 696 450" fill="none" stroke="#1c1917" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="621" y="442" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" fill="#44403c">s3:ObjectCreated:*</text>
+<path d="M696 498 L 846 498" fill="none" stroke="#1c1917" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="771" y="490" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" fill="#44403c">fan-out</text>
+<path d="M696 546 L 996 546" fill="none" stroke="#1c1917" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="846" y="538" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" fill="#44403c">fan-out</text>
+<path d="M846 594 L 246 594" fill="none" stroke="#1c1917" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="546" y="586" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" fill="#44403c">upload-complete event</text>
+<path d="M246 642 L 396 642" fill="none" stroke="#1c1917" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="321" y="634" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" fill="#44403c">TRANSCODING_IN_PROGRESS</text>
+<path d="M996 690 L 1146 690" fill="none" stroke="#1c1917" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="1071" y="682" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" fill="#44403c">upload-complete event</text>
+<path d="M1146 738 L 546 738" fill="none" stroke="#1c1917" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="846" y="730" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" fill="#44403c">GET source MP4</text>
+<path d="M1146 786 Q 1226 798.5 1146 811" fill="none" stroke="#1c1917" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="1146" y="790.5" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" fill="#44403c">FFmpeg → fMP4 HLS</text>
+<path d="M1146 841.2 L 1296 841.2" fill="none" stroke="#1c1917" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="1221" y="833.2" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" fill="#44403c">PUT index.m3u8, media.mp4</text>
+<path d="M1146 889.2 L 1446 889.2" fill="none" stroke="#1c1917" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="1296" y="881.2" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" fill="#44403c">VideoStatusUpdateRecord</text>
+<path d="M1446 937.1999999999999 L 246 937.1999999999999" fill="none" stroke="#1c1917" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="846" y="929.1999999999999" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" fill="#44403c">transcode-complete message</text>
+<path d="M246 985.1999999999999 L 396 985.1999999999999" fill="none" stroke="#1c1917" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="321" y="977.1999999999999" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" fill="#44403c">PLAY_READY or FAILED</text>
+<path d="M96 1081.1999999999998 L 246 1081.1999999999998" fill="none" stroke="#1c1917" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="171" y="1073.1999999999998" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" fill="#44403c">GET /api/v1/videos</text>
+<path d="M96 1129.1999999999998 L 246 1129.1999999999998" fill="none" stroke="#1c1917" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="171" y="1121.1999999999998" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" fill="#44403c">GET /api/v1/videos/{uploadId}/signed-url</text>
+<path d="M246 1177.1999999999998 L 96 1177.1999999999998" fill="none" stroke="#1c1917" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="171" y="1169.1999999999998" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" fill="#44403c">↩ presigned index.m3u8 URL</text>
+<path d="M96 1225.1999999999998 L 1296 1225.1999999999998" fill="none" stroke="#1c1917" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="696" y="1217.1999999999998" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" fill="#44403c">hls.js loads manifest + media</text>
+</svg>

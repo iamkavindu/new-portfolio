@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="520" viewBox="0 0 640 520" role="img" aria-labelledby="title desc">
+  <title id="title">Video status state machine</title>
+  <desc id="desc">States: AWAITING_UPLOAD, TRANSCODING_IN_PROGRESS, PLAY_READY, FAILED.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#44403c"/>
+    </marker>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#faf8f3"/>
+      <stop offset="100%" stop-color="#f0ebe3"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="640" height="520" fill="url(#bg)" rx="12"/>
+  <text x="32" y="40" font-family="Georgia, 'Times New Roman', serif" font-size="20" fill="#1c1917">Video status state machine</text>
+
+  <!-- start -->
+  <circle cx="80" cy="120" r="14" fill="#1c1917"/>
+
+  <!-- states -->
+  <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" text-anchor="middle">
+    <rect x="180" y="90" width="220" height="60" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="290" y="125" fill="#1e3a8a">AWAITING_UPLOAD</text>
+
+    <rect x="180" y="220" width="220" height="60" rx="10" fill="#ffedd5" stroke="#f97316" stroke-width="1.5"/>
+    <text x="290" y="255" fill="#9a3412">TRANSCODING_IN_PROGRESS</text>
+
+    <rect x="60" y="370" width="180" height="56" rx="10" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="150" y="403" fill="#14532d">PLAY_READY</text>
+
+    <rect x="380" y="370" width="180" height="56" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+    <text x="470" y="403" fill="#7f1d1d">FAILED</text>
+  </g>
+
+  <!-- end markers -->
+  <circle cx="150" cy="480" r="10" fill="none" stroke="#1c1917" stroke-width="3"/>
+  <circle cx="150" cy="480" r="5" fill="#1c1917"/>
+  <circle cx="470" cy="480" r="10" fill="none" stroke="#1c1917" stroke-width="3"/>
+  <circle cx="470" cy="480" r="5" fill="#1c1917"/>
+
+  <g fill="none" stroke="#44403c" stroke-width="1.5" marker-end="url(#arrow)">
+    <path d="M94 120 H178"/>
+    <path d="M290 150 V218"/>
+    <path d="M400 120 C520 120, 520 360, 470 368"/>
+    <path d="M220 280 C120 300, 120 350, 150 368"/>
+    <path d="M360 280 C470 300, 470 350, 470 368"/>
+    <path d="M150 426 V468"/>
+    <path d="M470 426 V468"/>
+  </g>
+
+  <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#57534e">
+    <text x="100" y="108">POST /api/v1/videos</text>
+    <text x="300" y="190">S3 ObjectCreated</text>
+    <text x="500" y="220">TTL cleanup</text>
+    <text x="500" y="235">(no PUT)</text>
+    <text x="80" y="320">Lambda success</text>
+    <text x="490" y="320">Lambda failure</text>
+  </g>
+</svg>
