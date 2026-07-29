@@ -12,8 +12,11 @@ const blogs = defineCollection({
     heroImage: z.string().optional(),
     draft: z.boolean().default(false),
     tags: z.array(z.string()).default([]),
-    /** Optional bullets shown as “Key takeaways” above the article body */
     takeaways: z.array(z.string()).default([]),
+    /** Guide entry id (filename without extension), e.g. "video-streaming" */
+    guide: z.string().optional(),
+    /** Optional order within a guide (lower first). Defaults to pubDate. */
+    orderInGuide: z.number().optional(),
   }),
 });
 
@@ -32,4 +35,13 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { blogs, projects };
+const guides = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/guides' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { blogs, projects, guides };

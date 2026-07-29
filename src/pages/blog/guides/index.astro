@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getPublishedGuides, getPostsForGuide } from '../../../lib/content';
+
+const guides = await getPublishedGuides();
+
+const guidesWithCounts = await Promise.all(
+  guides.map(async (guide) => ({
+    guide,
+    posts: await getPostsForGuide(guide.id),
+  }))
+);
+---
+
+<BaseLayout
+  title="Guides"
+  description="Topic field guides — ordered posts on streaming, Java/TypeScript, and backend systems."
+>
+  <div class="mx-auto max-w-3xl px-4 sm:px-6 py-16">
+    <p class="text-sm font-medium text-accent-600 dark:text-accent-400 mb-3">
+      <a href="/blog/" class="hover:underline">Writing</a>
+      <span class="text-surface-400 dark:text-surface-600"> / </span>
+      Guides
+    </p>
+    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-surface-900 dark:text-surface-50 mb-3">
+      Guides
+    </h1>
+    <p class="text-surface-600 dark:text-surface-400 mb-12 max-w-xl">
+      Field guides group related posts into a single topic. Start here when you want depth on one
+      theme instead of a chronological feed.
+    </p>
+
+    {
+      guidesWithCounts.length === 0 ? (
+        <p class="text-surface-500">No guides yet.</p>
+      ) : (
+        <ul class="space-y-8">
+          {guidesWithCounts.map(({ guide, posts }) => (
+            <li>
+              <article>
+                <h2 class="text-xl font-semibold">
+                  <a
+                    href={`/blog/guides/${guide.id}/`}
+                    class="text-surface-900 dark:text-surface-50 hover:text-accent-600 dark:hover:text-accent-400 transition-colors"
+                  >
+                    {guide.data.title}
+                  </a>
+                </h2>
+                <p class="mt-1.5 text-surface-600 dark:text-surface-400 leading-relaxed">
+                  {guide.data.description}
+                </p>
+                <p class="mt-2 text-sm text-surface-500">
+                  {posts.length === 0
+                    ? 'No published posts yet'
+                    : `${posts.length} post${posts.length === 1 ? '' : 's'}`}
+                </p>
+              </article>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</BaseLayout>
