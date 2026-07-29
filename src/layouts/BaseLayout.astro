@@ -35,6 +35,7 @@ const canonical = new URL(Astro.url.pathname, SITE_URL).href;
 const pageTitle = title === SITE_TITLE ? `${SITE_TITLE} · Software Engineer` : `${title} · ${SITE_TITLE}`;
 const ogImage = image.startsWith('http') ? image : new URL(image, SITE_URL).href;
 const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
+const isPng = ogImage.endsWith('.png') || ogImage.includes('.png?');
 
 const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION as string | undefined;
 
@@ -102,6 +103,9 @@ const websiteSchema = {
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:alt" content={pageTitle} />
+    {isPng && <meta property="og:image:type" content="image/png" />}
+    {isPng && <meta property="og:image:width" content="1200" />}
+    {isPng && <meta property="og:image:height" content="630" />}
     <meta property="og:site_name" content={SITE_TITLE} />
     {publishedTime && <meta property="article:published_time" content={publishedTime} />}
     {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
