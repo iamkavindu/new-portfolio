@@ -35,7 +35,8 @@ export function formatDate(
 }
 
 /** Approximate reading time from markdown body (words / 200 wpm). */
-export function readingTimeMinutes(body: string): number {
+export function readingTimeMinutes(body: string | undefined): number {
+  if (!body?.trim()) return 1;
   const words = body
     .replace(/```[\s\S]*?```/g, ' ')
     .replace(/`[^`]*`/g, ' ')
@@ -47,7 +48,6 @@ export function readingTimeMinutes(body: string): number {
   return Math.max(1, Math.ceil(words / 200));
 }
 
-export function readingTimeLabel(body: string): string {
-  const mins = readingTimeMinutes(body);
-  return `${mins} min read`;
+export function readingTimeLabel(body: string | undefined): string {
+  return `${readingTimeMinutes(body)} min read`;
 }

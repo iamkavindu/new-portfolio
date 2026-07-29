@@ -130,8 +130,16 @@ const websiteSchema = {
       })();
     </script>
 
-    {isHome && <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />}
-    {isHome && <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />}
+    {
+      isHome && (
+        <script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+      )
+    }
+    {
+      isHome && (
+        <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+      )
+    }
   </head>
   <body class="min-h-screen flex flex-col">
     <a
