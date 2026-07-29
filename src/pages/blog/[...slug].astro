@@ -3,13 +3,14 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
 import Takeaways from '../../components/Takeaways.astro';
-import { AUTHOR, SITE_URL, DEFAULT_OG_IMAGE } from '../../consts';
+import { AUTHOR, SITE_URL } from '../../consts';
 import {
   formatDate,
   readingTimeLabel,
   readingTimeMinutes,
   getGuide,
 } from '../../lib/content';
+import { ogImagePath } from '../../lib/og';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blogs', ({ data }) => !data.draft);
@@ -30,6 +31,9 @@ const wasUpdated =
 const readLabel = readingTimeLabel(post.body);
 const readMins = readingTimeMinutes(post.body);
 const guide = post.data.guide ? await getGuide(post.data.guide) : undefined;
+
+/** Prefer custom hero; else build-time OG PNG */
+const shareImage = post.data.heroImage ?? ogImagePath('blog', post.id);
 
 const articleSchema = {
   '@context': 'https://schema.org',
@@ -55,9 +59,7 @@ const articleSchema = {
   keywords: post.data.tags.join(', '),
   inLanguage: 'en',
   timeRequired: `PT${readMins}M`,
-  image: post.data.heroImage
-    ? new URL(post.data.heroImage, SITE_URL).href
-    : new URL(DEFAULT_OG_IMAGE, SITE_URL).href,
+  image: new URL(shareImage, SITE_URL).href,
 };
 
 const breadcrumbItems = [
@@ -105,7 +107,7 @@ const breadcrumbSchema = {
   type="article"
   publishedTime={post.data.pubDate.toISOString()}
   modifiedTime={modified.toISOString()}
-  image={post.data.heroImage ?? DEFAULT_OG_IMAGE}
+  image={shareImage}
 >
   <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
   <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />

@@ -1,7 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { AUTHOR, SITE_URL, DEFAULT_OG_IMAGE } from '../../consts';
+import { AUTHOR, SITE_URL } from '../../consts';
+import { ogImagePath } from '../../lib/og';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects', ({ data }) => !data.draft);
@@ -15,6 +16,7 @@ const { project } = Astro.props;
 const { Content } = await render(project);
 
 const pageUrl = new URL(`/work/${project.id}/`, SITE_URL).href;
+const shareImage = project.data.heroImage ?? ogImagePath('work', project.id);
 
 const workSchema = {
   '@context': 'https://schema.org',
@@ -29,6 +31,7 @@ const workSchema = {
   codeRepository: project.data.repo,
   programmingLanguage: project.data.stack,
   url: pageUrl,
+  image: new URL(shareImage, SITE_URL).href,
 };
 
 const breadcrumbSchema = {
@@ -60,7 +63,7 @@ const breadcrumbSchema = {
 <BaseLayout
   title={project.data.title}
   description={project.data.description}
-  image={project.data.heroImage ?? DEFAULT_OG_IMAGE}
+  image={shareImage}
 >
   <script is:inline type="application/ld+json" set:html={JSON.stringify(workSchema)} />
   <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
