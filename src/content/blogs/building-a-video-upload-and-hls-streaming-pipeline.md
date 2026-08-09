@@ -203,16 +203,7 @@ Every video row tracks one of four statuses:
 | `PLAY_READY` | HLS output exists; playback allowed |
 | `FAILED` | Upload abandoned or transcode errored |
 
-```mermaid
-stateDiagram-v2
-    [*] --> AWAITING_UPLOAD: POST /api/v1/videos
-    AWAITING_UPLOAD --> TRANSCODING_IN_PROGRESS: S3 ObjectCreated event
-    AWAITING_UPLOAD --> FAILED: TTL cleanup (no PUT)
-    TRANSCODING_IN_PROGRESS --> PLAY_READY: Lambda success message
-    TRANSCODING_IN_PROGRESS --> FAILED: Lambda failure message
-    PLAY_READY --> [*]
-    FAILED --> [*]
-```
+![Video status state machine](/images/blogs/stream-app/state-diagram.png)
 
 The signed stream URL endpoint enforces this: requesting a manifest for a non-ready video returns `409 Conflict` with a `video-not-ready` problem type, so the frontend never wastes a presign call on a video still transcoding.
 
