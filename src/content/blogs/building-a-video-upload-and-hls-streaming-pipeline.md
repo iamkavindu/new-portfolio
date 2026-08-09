@@ -35,45 +35,7 @@ That split — metadata in PostgreSQL, bytes in S3, processing in Lambda, playba
 
 The platform has three cooperating flows: **upload**, **transcode**, and **playback**.
 
-```mermaid
-sequenceDiagram
-    participant FE as Frontend
-    participant API as VideoController
-    participant DB as PostgreSQL
-    participant Up as streamapp-uploads
-    participant SNS as video-upload-events
-    participant Qb as video-processing-backend
-    participant Ql as video-processing-lambda
-    participant Lambda as Transcode Lambda
-    participant Str as streamapp-streams
-    participant Qc as video-transcode-complete-backend
-
-    Note over FE,Up: 1. Upload
-    FE->>API: POST /api/v1/videos (fileName, sha256Hex)
-    API->>DB: INSERT videos (AWAITING_UPLOAD)
-    API-->>FE: uploadId, presigned PUT URL
-    FE->>Up: PUT raw MP4
-
-    Note over Up,Lambda: 2. Transcode
-    Up->>SNS: s3:ObjectCreated:*
-    SNS->>Qb: fan-out
-    SNS->>Ql: fan-out
-    Qb->>API: upload-complete event
-    API->>DB: TRANSCODING_IN_PROGRESS
-    Ql->>Lambda: upload-complete event
-    Lambda->>Up: GET source MP4
-    Lambda->>Lambda: FFmpeg → fMP4 HLS
-    Lambda->>Str: PUT index.m3u8, media.mp4
-    Lambda->>Qc: VideoStatusUpdateRecord
-    Qc->>API: transcode-complete message
-    API->>DB: PLAY_READY or FAILED
-
-    Note over FE,Str: 3. Playback
-    FE->>API: GET /api/v1/videos
-    FE->>API: GET /api/v1/videos/{uploadId}/signed-url
-    API-->>FE: presigned index.m3u8 URL
-    FE->>Str: hls.js loads manifest + media
-```
+![StreamApp — Video Upload, Transcode & Playback Architecture](/images/blogs/stream-app/architecture.png)
 
 Each upload gets a UUID **`uploadId`** that threads through every layer: database primary key, S3 prefix, SQS messages, and frontend playlist entries. Keeping that identifier stable and unique is the spine of the design.
 
