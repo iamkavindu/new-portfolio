@@ -1,0 +1,17 @@
+---
+import Layout from '../../../components/Layout.astro';
+import EntryPage from '../../../components/EntryPage.astro';
+import HomePage from '../../../components/HomePage.astro';
+import ContactPage from '../../../components/ContactPage.astro';
+import AboutPage from '../../../components/AboutPage.astro';
+import {getCatalog, linkedProjects, linkedArticles} from '../../../content';
+const type = Astro.params.type;
+const id = Astro.params.id;
+const allowed = ['article', 'project', 'profile', 'siteSettings'].includes(type || '') && /^[A-Za-z0-9_.-]+$/.test(id || '');
+// Middleware verifies the signed session before this file can read drafts.
+const {data, unavailable} = allowed ? await getCatalog(true) : {data: {articles: [], projects: [], profile: null, settings: null}, unavailable: false};
+const entry = (type === 'article' ? data.articles : type === 'project' ? data.projects : []).find((entry) => entry._id === id);
+const found = allowed && (type === 'article' || type === 'project' ? !!entry : type === 'profile' ? id === 'profile' && !!data.profile : id === 'siteSettings' && !!data.settings);
+if (!found) Astro.response.status = unavailable ? 503 : 404;
+---
+{found ? entry ? <EntryPage entry={entry} related={type === 'article' ? linkedProjects(entry, data.projects) : linkedArticles(entry, data.articles)} profile={data.profile} settings={data.settings} /> : type === 'profile' ? <AboutPage data={data} /> : Astro.url.searchParams.get('view') === 'contact' ? <ContactPage data={data} /> : <HomePage data={data} /> : <Layout title="Preview unavailable"><section class="page-heading"><h1>{unavailable ? 'Preview connection unavailable.' : 'Draft not found.'}</h1><p class="intro">{unavailable ? 'Check the server-side Viewer token and connection, then refresh.' : 'Save the document, generate its URL if needed, and reopen Preview.'}</p></section></Layout>}

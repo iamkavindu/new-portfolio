@@ -1,3 +1,4 @@
+import {getSecret} from 'astro:env/server';
 import {createClient} from '@sanity/client';
 import {createImageUrlBuilder} from '@sanity/image-url';
 import type {TrialBlock} from '../trial/client';
@@ -5,7 +6,7 @@ import type {TrialBlock} from '../trial/client';
 export interface ContentImage {asset?: {_ref: string}; alt?: string;}
 export interface Entry {
   _id: string; _type: 'article' | 'project'; title: string; slug: {current: string};
-  description?: string; body?: TrialBlock[]; coverImage?: ContentImage;
+  _updatedAt?: string; legacySlugs?: string[]; description?: string; body?: TrialBlock[]; coverImage?: ContentImage;
   tags?: string[]; technologies?: string[]; publishedAt?: string;
   repositoryUrl?: string; demoUrl?: string; status?: string;
   relatedProjects?: {_ref: string}[];
@@ -13,27 +14,32 @@ export interface Entry {
 }
 export interface CareerEntry {_key: string; title: string; organization: string; period: string; description?: string;}
 export interface Profile {
+  _id?: string;
   name?: string; headline?: string; portrait?: ContentImage; body?: TrialBlock[];
   skills?: string[]; experience?: CareerEntry[]; education?: CareerEntry[];
   cvUrl?: string; seo?: Entry['seo'];
 }
 export interface Settings {
+  _id?: string;
   homeTitle?: string; homeIntroduction?: string; contactIntroduction?: string; email?: string;
   featuredArticles?: {_ref: string}[]; featuredProjects?: {_ref: string}[];
   socialLinks?: {_key: string; title: string; url: string}[]; seo?: Entry['seo'];
 }
 export interface Catalog {articles: Entry[]; projects: Entry[]; profile: Profile | null; settings: Settings | null;}
 const configuration = {projectId: 'ty4afqwx', dataset: 'production', apiVersion: '2025-02-19'};
-const client = createClient({...configuration, useCdn: false, perspective: 'published', timeout: 10000});
+const client = createClient({...configuration, useCdn: false, perspective: 'published', timeout: 10000, maxRetries: 0});
 const images = createImageUrlBuilder(configuration);
 export function imageUrl(image: ContentImage | undefined, width = 1200): string | undefined {
   if (!image?.asset?._ref) return undefined;
   try {return images.image(image).width(width).fit('max').auto('format').url();} catch {return undefined;}
 }
 // No token or draft data is ever used by this public reader.
-export async function getCatalog(): Promise<{data: Catalog; unavailable: boolean}> {
+export async function getCatalog(drafts = false): Promise<{data: Catalog; unavailable: boolean}> {
   try {
-    const data = await client.fetch<Catalog>(`{
+    const token = drafts ? getSecret('SANITY_API_READ_TOKEN') : undefined;
+    if (drafts && !token) throw new Error('Draft preview is not configured.');
+    const reader = drafts ? client.withConfig({perspective: 'drafts', token}) : client;
+    const data = await reader.fetch<Catalog>(`{
       "articles": *[_type == "article" && defined(slug.current)] | order(publishedAt desc, _id asc),
       "projects": *[_type == "project" && defined(slug.current)] | order(_createdAt desc, _id asc),
       "profile": *[_type == "profile" && _id == "profile"][0]{..., "cvUrl": cv.asset->url},

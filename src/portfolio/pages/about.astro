@@ -1,19 +1,7 @@
 ---
-import Layout from '../components/Layout.astro';
-import Empty from '../components/Empty.astro';
-import {getCatalog, imageUrl} from '../content';
-import {renderBody, safeHref} from '../../trial/render';
+import AboutPage from '../components/AboutPage.astro';
+import {getCatalog} from '../content';
 const {data, unavailable} = await getCatalog();
 if (unavailable) Astro.response.status = 503;
-const profile = data.profile;
-const html = profile?.body ? await renderBody(profile.body) : '';
 ---
-<Layout title={profile?.seo?.title || 'About / CV'} description={profile?.seo?.description || profile?.headline} name={profile?.name}>
-<header class="page-heading"><p class="eyebrow">Behind the work</p><h1>{profile?.name || 'Kavindu Perera'}<span class="accent">.</span></h1><p class="intro">{profile?.headline || 'Software engineer, curious by nature.'}</p></header>
-{profile ? <>
-<div class="about-grid"><div class="article-body" set:html={html} /><aside class="profile-card">{imageUrl(profile.portrait, 650) && <img src={imageUrl(profile.portrait, 650)} alt={profile.portrait?.alt || ''} />}<p class="eyebrow">At a glance</p>{profile.skills?.length && <ul class="skill-list">{profile.skills.map((skill) => <li>{skill}</li>)}</ul>}<a href="/contact/">Let’s talk ↗</a></aside></div>
-<section id="cv" class="section"><div class="section-heading"><div><p class="eyebrow">The professional chapter</p><h2>Experience & education</h2></div>{profile.cvUrl && <a class="button" href={safeHref(profile.cvUrl)}>Download CV (PDF) ↓</a>}</div>
-{[{title: 'Experience', entries: profile.experience}, {title: 'Education', entries: profile.education}].map(({title, entries}) => entries?.length ? <section class="career"><h3>{title}</h3>{entries.map((entry) => <div class="career-row"><p class="eyebrow">{entry.period}</p><div><h4>{entry.title}</h4><p class="organization">{entry.organization}</p><p class="preserve-lines">{entry.description}</p></div></div>)}</section> : null)}
-{!profile.experience?.length && !profile.education?.length && <p>More about my professional background will be added here soon.</p>}
-</section></> : <Empty unavailable={unavailable} message="A fuller introduction is on its way. In the meantime, explore my writing and projects." />}
-</Layout>
+<AboutPage data={data} unavailable={unavailable} />

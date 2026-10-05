@@ -1,5 +1,7 @@
 # Editorial portfolio review
 
+For the current application and deployment workflow, see [Production publishing](PRODUCTION-PUBLISHING.md). The original review steps below describe the pre-production iteration.
+
 This PR implements the approved cream/green editorial design with serif headings, structured navigation, readable articles, and selective lilac/lime accents. It adds a separate Sanity-powered portfolio entry point so the design can be reviewed before the live-site switch.
 
 ## Run with your published Sanity content

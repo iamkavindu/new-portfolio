@@ -1,13 +1,11 @@
 import {defineConfig} from 'astro/config';
 import node from '@astrojs/node';
+import production from './astro.config.mjs';
 
-// Review the replacement independently until production hosting is connected.
+// A portable local review; production uses Netlify.
 export default defineConfig({
-  srcDir: './src/portfolio',
+  ...production,
   outDir: './dist-portfolio',
-  site: 'https://iamkavindu.dev',
-  trailingSlash: 'always',
-  output: 'server',
   adapter: node({mode: 'standalone'}),
-  compressHTML: true,
+  vite: {define: {'import.meta.env.PORTFOLIO_REVIEW': JSON.stringify('true')}},
 });

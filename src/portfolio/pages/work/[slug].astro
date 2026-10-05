@@ -7,4 +7,4 @@ const {data, unavailable} = await getCatalog();
 const entry = data.projects.find((project) => project.slug.current === Astro.params.slug);
 if (!entry) Astro.response.status = unavailable ? 503 : 404;
 ---
-{entry ? <EntryPage entry={entry} related={linkedArticles(entry, data.articles)} name={data.profile?.name} /> : <Layout title={unavailable ? 'Temporarily unavailable' : 'Project not found'}><header class="page-heading"><h1>{unavailable ? 'A brief interruption.' : 'Project not found.'}</h1></header><Empty unavailable={unavailable} message="This project may have moved or is no longer published." /></Layout>}
+{entry ? <EntryPage entry={entry} related={linkedArticles(entry, data.articles)} profile={data.profile} settings={data.settings} /> : <Layout title={unavailable ? 'Temporarily unavailable' : 'Project not found'}><header class="page-heading"><h1>{unavailable ? 'A brief interruption.' : 'Project not found.'}</h1></header><Empty unavailable={unavailable} message="This project may have moved or is no longer published." /></Layout>}

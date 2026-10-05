@@ -1,0 +1,23 @@
+---
+import Layout from '../../components/Layout.astro';
+import {previewCookie, previewSecret, sessionSeconds, sameSecret, createSession, safePreviewPath} from '../../lib/auth';
+const secret = previewSecret();
+const configured = secret.length >= 24;
+let message = '';
+let next = safePreviewPath(Astro.url.searchParams.get('next'));
+if (!configured) Astro.response.status = 503;
+if (Astro.request.method === 'POST' && configured) {
+  if (Astro.request.headers.get('origin') !== Astro.url.origin) {
+    Astro.response.status = 403; message = 'Please submit this form from the preview page.';
+  } else {
+    const form = await Astro.request.formData();
+    next = safePreviewPath(String(form.get('next') || ''));
+    if (sameSecret(String(form.get('password') || ''), secret)) {
+      Astro.cookies.set(previewCookie, createSession(secret), {httpOnly: true, secure: Astro.url.protocol === 'https:' || !['localhost', '127.0.0.1'].includes(Astro.url.hostname), sameSite: 'lax', path: '/preview/', maxAge: sessionSeconds});
+      return Astro.redirect(next, 303);
+    }
+    Astro.response.status = 401; message = 'The preview password did not match.';
+  }
+}
+---
+<Layout title="Unlock draft preview"><section class="page-heading"><p class="eyebrow">Private workspace</p><h1>See your draft.</h1>{configured ? <><p class="intro">Enter your preview password to view unpublished changes.</p><form class="preview-login" method="post"><input type="hidden" name="next" value={next} /><label for="password">Preview password</label><input id="password" name="password" type="password" required autocomplete="current-password" /><button class="button" type="submit">Open preview</button></form>{message && <p role="alert">{message}</p>}</> : <p class="intro">Draft preview is not configured. Set the server-side preview password and Viewer token, then restart or redeploy.</p>}</section></Layout>
