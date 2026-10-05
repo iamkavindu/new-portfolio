@@ -1,0 +1,11 @@
+---
+import {entryPath, displayDate, imageUrl, type Entry} from '../content';
+interface Props {entries: Entry[]; numbered?: boolean;}
+const {entries, numbered = false} = Astro.props;
+---
+<div class:list={['cards', {'numbered': numbered}]}>{entries.map((entry, index) => <article class:list={['card', entry._type]}>
+  <div class="card-top"><p class="eyebrow">{entry._type === 'article' ? (entry.tags?.[0] || 'Field notes') : (entry.technologies?.slice(0, 2).join(' / ') || 'Project')}</p>{numbered && <span class="index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>}</div>
+  {imageUrl(entry.coverImage, 700) && <img class="card-image" src={imageUrl(entry.coverImage, 700)} alt={entry.coverImage?.alt || ''} loading="lazy" />}
+  <h3><a href={entryPath(entry)}>{entry.title}</a></h3><p>{entry.description}</p>
+  <div class="card-bottom">{entry._type === 'article' && displayDate(entry.publishedAt) ? <time datetime={entry.publishedAt}>{displayDate(entry.publishedAt)}</time> : <span>{entry._type === 'project' ? 'Explore project' : 'Read article'}</span>}<span aria-hidden="true">↗</span></div>
+</article>)}</div>

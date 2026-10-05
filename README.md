@@ -66,3 +66,7 @@ Feature work lands on branches like `feat/og-per-post`, then merges to `main` vi
 ## Sanity content models
 
 See [the content model guide](docs/CONTENT-MODELS.md) for the permanent Writing, Work, About/CV, and Home/Contact editor sections and local review steps. These models are not yet connected to the public website.
+
+## Editorial portfolio review
+
+Run `npm run portfolio:dev` for the redesigned site using published Sanity content, or `npm run portfolio:build` followed by `npm run portfolio:demo` to review with local sample content. See [the design review guide](docs/PORTFOLIO-DESIGN.md) for routes, checks, and scope.
