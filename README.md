@@ -2,6 +2,10 @@
 
 Astro-based portfolio and blog for [Kavindu Perera](https://iamkavindu.dev).
 
+## Sanity writing trial
+
+An isolated Studio and Astro trial are configured for project `ty4afqwx` / dataset `production`. See [SANITY-TRIAL.md](./SANITY-TRIAL.md) for sign-in, sample-draft import, preview configuration, and the writing checklist. Normal builds keep the current website unchanged.
+
 ## Stack
 
 - **Astro 7** — static site, content collections (Sätteri markdown)

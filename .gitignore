@@ -15,3 +15,7 @@ node_modules/
 .idea/
 .vscode/
 *.log
+
+# isolated CMS trial
+dist-trial/
+studio/.sanity/

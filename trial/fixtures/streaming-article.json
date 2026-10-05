@@ -1,0 +1,175 @@
+{
+  "_id": "portfolio-trial-streaming",
+  "_type": "portfolioTrialArticle",
+  "title": "From video upload to HLS playback",
+  "slug": {
+    "_type": "slug",
+    "current": "streaming-pipeline-trial"
+  },
+  "description": "A writing trial using an excerpt from the stream-app article: Spring Boot, S3, and an event-driven video pipeline.",
+  "publishedAt": "2026-06-28T00:00:00Z",
+  "tags": [
+    "Spring Boot",
+    "AWS",
+    "Architecture"
+  ],
+  "body": [
+    {
+      "_type": "block",
+      "_key": "paragraph-1",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "span-1",
+          "text": "Uploading a video file is easy. Turning that upload into a streamable asset — tracking state across services, deduplicating by content hash, transcoding to a browser-friendly format, and serving it securely — is where things get interesting.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "paragraph-2",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "span-2",
+          "text": "End-to-End Architecture",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "paragraph-3",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "span-3",
+          "text": "The platform has three cooperating flows: upload, transcode, and playback.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "image",
+      "_key": "architecture",
+      "_demoPath": "/images/blogs/stream-app/architecture.png",
+      "alt": "Stream-app architecture showing upload, transcode, and playback flows.",
+      "caption": "The upload, transcoding, and playback flows in stream-app."
+    },
+    {
+      "_type": "block",
+      "_key": "paragraph-4",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "span-4",
+          "text": "Shared Object-Key Conventions",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "paragraph-5",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "span-5",
+          "text": "The most important cross-service contract is where files live in S3. I centralized this in a single utility class used by the backend, Lambda, and tests:",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "code",
+      "_key": "object-key-code",
+      "language": "java",
+      "filename": "S3ObjectKeys.java",
+      "code": "public final class S3ObjectKeys {\n\n    public static final String PLAYLIST_FILE = \"index.m3u8\";\n    public static final String MEDIA_FILE = \"media.mp4\";\n\n    public static String uploadObjectKey(UUID uploadId, String fileName) {\n        return uploadId + \"/\" + sanitizeFileName(fileName);\n    }\n\n    public static String streamPlaylistKey(UUID uploadId) {\n        return uploadId + \"/\" + PLAYLIST_FILE;\n    }\n\n    public static String streamMediaKey(UUID uploadId) {\n        return uploadId + \"/\" + MEDIA_FILE;\n    }\n}"
+    },
+    {
+      "_type": "trialTable",
+      "_key": "storage-table",
+      "caption": "Storage contracts",
+      "headers": [
+        "Bucket",
+        "Key pattern",
+        "Purpose"
+      ],
+      "rows": [
+        {
+          "_type": "trialTableRow",
+          "_key": "uploads",
+          "cells": [
+            "streamapp-uploads",
+            "{uploadId}/{fileName}",
+            "Raw client upload via presigned PUT"
+          ]
+        },
+        {
+          "_type": "trialTableRow",
+          "_key": "manifest",
+          "cells": [
+            "streamapp-streams",
+            "{uploadId}/index.m3u8",
+            "HLS manifest"
+          ]
+        },
+        {
+          "_type": "trialTableRow",
+          "_key": "media",
+          "cells": [
+            "streamapp-streams",
+            "{uploadId}/media.mp4",
+            "Single fragmented MP4"
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "paragraph-6",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "span-6",
+          "text": "Playback and Private Media",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "trialCallout",
+      "_key": "playback-callout",
+      "title": "A presigned manifest is not enough",
+      "text": "A single presigned manifest URL does not authorize relative segment fetches from a private bucket. Production playback needs an access strategy such as CloudFront signed cookies or a media proxy."
+    },
+    {
+      "_type": "block",
+      "_key": "paragraph-7",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "span-7",
+          "text": "This trial excerpt exercises prose, headings, Java code, a diagram, a table, and a callout. Edit these blocks freely while evaluating the writing workflow.",
+          "marks": []
+        }
+      ]
+    }
+  ]
+}

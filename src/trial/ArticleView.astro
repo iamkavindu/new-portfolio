@@ -1,0 +1,19 @@
+---
+import TrialLayout from './TrialLayout.astro';
+import {renderBody, headingId} from './render';
+import type {TrialArticle} from './client';
+interface Props {article: TrialArticle; mode: 'sample' | 'draft' | 'published';}
+const {article, mode} = Astro.props;
+const body = article.body || [];
+const html = await renderBody(body);
+const headings = body.filter((block) => block._type === 'block' && block.style === 'h2').map((block) => ({id: headingId(block._key), text: block.children?.map((span) => span.text).join('') || ''}));
+const words = body.filter((block) => block._type === 'block').flatMap((block) => block.children || []).map((span) => span.text || '').join(' ').split(/\s+/).length;
+const date = article.publishedAt ? new Date(article.publishedAt) : null;
+---
+<TrialLayout title={article.title}>
+  <p class="status">{mode === 'sample' ? 'Local sample · not fetched from Sanity' : mode === 'draft' ? 'Private draft preview · refresh after editing' : 'Published content from Sanity · trial page only'}</p>
+  <article>
+    <header class="article-header"><p class="eyebrow">{article.tags?.join(' / ') || 'Field notes'}</p><h1>{article.title}</h1><p class="deck">{article.description}</p><p class="byline">Kavindu Perera{date && !Number.isNaN(date.valueOf()) && <> · <time datetime={date.toISOString()}>{date.toLocaleDateString('en-GB', {day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC'})}</time></>} · {Math.max(1, Math.ceil(words / 200))} min read</p></header>
+    <div class="reading-grid"><div class="article-body" set:html={html} /><aside class="toc"><p class="eyebrow">On this page</p>{headings.map((heading) => <a href={`#${heading.id}`}>{heading.text}</a>)}</aside></div>
+  </article>
+</TrialLayout>
