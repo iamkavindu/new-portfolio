@@ -32,6 +32,28 @@ export const trialTable = defineType({
   preview: {select: {title: 'caption'}, prepare: ({title}) => ({title: title || 'Table'})},
 });
 
+export const writingBlocks = [
+  defineArrayMember({
+    type: 'block',
+    styles: [{title: 'Paragraph', value: 'normal'}, {title: 'Heading', value: 'h2'}, {title: 'Subheading', value: 'h3'}, {title: 'Quote', value: 'blockquote'}],
+    lists: [{title: 'Bullets', value: 'bullet'}, {title: 'Numbered', value: 'number'}],
+    marks: {
+      decorators: [{title: 'Bold', value: 'strong'}, {title: 'Italic', value: 'em'}, {title: 'Inline code', value: 'code'}],
+      annotations: [{name: 'link', title: 'Link', type: 'object', fields: [defineField({name: 'href', title: 'URL', type: 'url', validation: (rule) => rule.uri({scheme: ['http', 'https', 'mailto'], allowRelative: true})})]}],
+    },
+  }),
+  defineArrayMember({type: 'image', title: 'Image or diagram', options: {hotspot: true}, fields: [
+    defineField({name: 'alt', title: 'Alternative text', type: 'string', validation: (rule) => rule.required()}),
+    defineField({name: 'caption', title: 'Caption', type: 'string'}),
+  ]}),
+  defineArrayMember({type: 'code', title: 'Code', options: {withFilename: true, languageAlternatives: [
+    {title: 'Java', value: 'java'}, {title: 'TypeScript', value: 'typescript'}, {title: 'JavaScript', value: 'javascript'},
+    {title: 'JSON', value: 'json'}, {title: 'YAML', value: 'yaml'}, {title: 'Shell', value: 'bash'}, {title: 'SQL', value: 'sql'}, {title: 'Plain text', value: 'text'},
+  ]}}),
+  defineArrayMember({type: 'trialTable'}),
+  defineArrayMember({type: 'trialCallout'}),
+];
+
 export const article = defineType({
   name: 'portfolioTrialArticle', title: 'Trial article', type: 'document',
   groups: [
@@ -42,27 +64,7 @@ export const article = defineType({
     defineField({name: 'title', title: 'Title', type: 'string', group: 'write', validation: (rule) => rule.required()}),
     defineField({
       name: 'body', title: 'Article', type: 'array', group: 'write',
-      of: [
-        defineArrayMember({
-          type: 'block',
-          styles: [{title: 'Paragraph', value: 'normal'}, {title: 'Heading', value: 'h2'}, {title: 'Subheading', value: 'h3'}, {title: 'Quote', value: 'blockquote'}],
-          lists: [{title: 'Bullets', value: 'bullet'}, {title: 'Numbered', value: 'number'}],
-          marks: {
-            decorators: [{title: 'Bold', value: 'strong'}, {title: 'Italic', value: 'em'}, {title: 'Inline code', value: 'code'}],
-            annotations: [{name: 'link', title: 'Link', type: 'object', fields: [defineField({name: 'href', title: 'URL', type: 'url', validation: (rule) => rule.uri({scheme: ['http', 'https', 'mailto'], allowRelative: true})})]}],
-          },
-        }),
-        defineArrayMember({type: 'image', title: 'Image or diagram', options: {hotspot: true}, fields: [
-          defineField({name: 'alt', title: 'Alternative text', type: 'string', validation: (rule) => rule.required()}),
-          defineField({name: 'caption', title: 'Caption', type: 'string'}),
-        ]}),
-        defineArrayMember({type: 'code', title: 'Code', options: {withFilename: true, languageAlternatives: [
-          {title: 'Java', value: 'java'}, {title: 'TypeScript', value: 'typescript'}, {title: 'JavaScript', value: 'javascript'},
-          {title: 'JSON', value: 'json'}, {title: 'YAML', value: 'yaml'}, {title: 'Shell', value: 'bash'}, {title: 'SQL', value: 'sql'}, {title: 'Plain text', value: 'text'},
-        ]}}),
-        defineArrayMember({type: 'trialTable'}),
-        defineArrayMember({type: 'trialCallout'}),
-      ], validation: (rule) => rule.required().min(1),
+      of: writingBlocks, validation: (rule) => rule.required().min(1),
     }),
     defineField({name: 'slug', title: 'Article URL', type: 'slug', group: 'details', options: {source: 'title', maxLength: 96}, validation: (rule) => rule.required().custom((value) => !value?.current || /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value.current) || 'Use lowercase letters, numbers, and hyphens.')}),
     defineField({name: 'description', title: 'Short introduction', type: 'text', rows: 3, group: 'details', validation: (rule) => rule.required().max(220)}),

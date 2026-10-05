@@ -62,3 +62,7 @@ See `src/content.config.ts` for frontmatter schema. Set `draft: true` to exclude
 ## Branches
 
 Feature work lands on branches like `feat/og-per-post`, then merges to `main` via PR.
+
+## Sanity content models
+
+See [the content model guide](docs/CONTENT-MODELS.md) for the permanent Writing, Work, About/CV, and Home/Contact editor sections and local review steps. These models are not yet connected to the public website.
