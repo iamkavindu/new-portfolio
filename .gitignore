@@ -15,3 +15,15 @@ node_modules/
 .idea/
 .vscode/
 *.log
+
+# isolated CMS trial
+dist-trial/
+studio/.sanity/
+
+# redesign review build
+dist-portfolio/
+
+# generated hosted Studio / Netlify / production test build
+public/studio/
+.netlify/
+dist-public-test/

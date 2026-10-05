@@ -1,0 +1,24 @@
+{
+  "name": "portfolio-sanity-trial-studio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev --host 127.0.0.1",
+    "build": "sanity build",
+    "check": "tsc --noEmit",
+    "login": "sanity login",
+    "seed": "sanity exec scripts/seed.ts --with-user-token"
+  },
+  "dependencies": {
+    "@sanity/code-input": "^7.3.9",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "sanity": "^6.17.0",
+    "styled-components": "^6.1.19"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "@types/node": "^24.0.0",
+    "typescript": "~5.9.2"
+  }
+}

@@ -1,60 +1,31 @@
-# iamkavindu.dev (new portfolio)
+# iamkavindu.dev
 
-Astro-based portfolio and blog for [Kavindu Perera](https://iamkavindu.dev).
+An editorial portfolio for Kavindu Perera: Writing, Work, About/CV, and Contact. Astro serves published Sanity content on Netlify; Studio is hosted at `/studio/`. Publishing content needs no Git branch or rebuild.
 
-## Stack
+## Setup
 
-- **Astro 7** — static site, content collections (Sätteri markdown)
-- **Tailwind CSS v4** — teal / slate design system
-- **TypeScript 5.9**
-- **Node.js ≥ 22.12** (required by Astro 6+)
-- **Satori + Sharp** — build-time Open Graph PNGs per post/project
-- Deploy: **Netlify**
+Use Node >=22.12, then:
 
-## Development
-
-```bash
-nvm use   # or: node >= 22.12
-npm install
-npm run dev      # http://localhost:4321
-npm run build
-npm run preview
-npm run check    # astro check
+```sh
+npm ci
+npm --prefix studio ci
+cp .env.example .env
+npm run dev
+# In another terminal:
+npm run studio:dev
 ```
 
-Copy `.env.example` to `.env` when you need local env vars.
+See [Production publishing](docs/PRODUCTION-PUBLISHING.md) for runtime credentials, CORS, deployment, SEO, and verification. [Content models](docs/CONTENT-MODELS.md) describes what to edit in Sanity. [Portfolio design](docs/PORTFOLIO-DESIGN.md) documents the visual direction and sample-content review.
 
-## Content
+## Verification
 
-- Blogs: `src/content/blogs/*.md`
-- Projects: `src/content/projects/*.md`
-- Guides: `src/content/guides/*.md` (optional topic hubs)
+```sh
+npm run check
+npm --prefix studio run check
+npm run trial:test
+npm run production:test:build
+npm run production:smoke
+npm run build
+```
 
-See `src/content.config.ts` for frontmatter schema. Set `draft: true` to exclude from build listings, RSS, and static routes.
-
-## SEO checklist
-
-| Item | Status |
-|------|--------|
-| Canonical URLs | Per page via `BaseLayout` |
-| Open Graph / Twitter | Title, description, image |
-| Default share image | `public/og-default.svg` |
-| **Per-post OG PNG** | `/og/blog/{id}.png`, `/og/work/{id}.png` (build-time) |
-| JSON-LD | Person + WebSite (home), BlogPosting, SoftwareSourceCode, BreadcrumbList |
-| Sitemap | `@astrojs/sitemap` → `/sitemap-index.xml` |
-| RSS | `/rss.xml` |
-| robots.txt | Points at sitemap |
-| Search Console | Set `PUBLIC_GOOGLE_SITE_VERIFICATION` in Netlify env |
-
-### Open Graph images
-
-- Generated at **build time** by `src/pages/og/[...route].png.ts` (Satori → SVG → Sharp PNG).
-- Blog/work pages use the PNG unless `heroImage` is set in frontmatter.
-- Preview after build: open `dist/og/blog/<slug>.png` or hit the path in `astro preview`.
-- Build needs network once to fetch Inter TTF from jsDelivr (cached in-process for the rest of the build).
-
-> **Why not `astro-og-canvas`?** Its peer range is Astro 5/6 only; this site is on Astro 7.
-
-## Branches
-
-Feature work lands on branches like `feat/og-per-post`, then merges to `main` via PR.
+The original Markdown website remains in the repository as an archive; the active source is `src/portfolio/`. The [Sanity trial guide](SANITY-TRIAL.md) records the earlier isolated authoring evaluation, not the production publishing flow. Articles can optionally link to hobby projects; project pages derive related writing from those links.

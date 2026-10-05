@@ -1,0 +1,22 @@
+---
+import './trial.css';
+interface Props {title: string;}
+const {title} = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title} · Kavindu Perera</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="trial-shell">
+      <header class="site-header"><a class="brand" href="/trial/">Kavindu Perera<span>.</span></a><nav aria-label="Trial navigation"><a href="/trial/">Writing trial</a><a href="/trial/article/sample/">Sample article</a><a href="http://localhost:3333" target="_blank" rel="noopener noreferrer">Open editor ↗</a></nav></header>
+      <main id="main"><slot /></main>
+      <footer>Editorial design &amp; publishing trial · Separate from the live portfolio</footer>
+    </div>
+  </body>
+</html>

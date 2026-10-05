@@ -1,0 +1,13 @@
+---
+import ArticleView from '../ArticleView.astro';
+import TrialLayout from '../TrialLayout.astro';
+import {getTrialArticle, type TrialArticle} from '../client';
+import sample from '../../../trial/fixtures/streaming-article.json';
+const slug = Astro.params.slug || '';
+let article: TrialArticle | null = null;
+let error = false;
+try { article = slug === 'sample' ? sample as unknown as TrialArticle : await getTrialArticle(slug); }
+catch { error = true; }
+if (!article) Astro.response.status = error ? 503 : 404;
+---
+{article ? <ArticleView article={article} mode={slug === 'sample' ? 'sample' : 'published'} /> : <TrialLayout title={error ? 'Connection unavailable' : 'Article not published'}><section class="intro"><h1>{error ? 'Connection unavailable.' : 'Not published yet.'}</h1><p>{error ? 'Check the Sanity connection and try again.' : 'Use the protected draft preview, or publish this article in Studio.'}</p><a href="/trial/">Back to the trial</a></section></TrialLayout>}

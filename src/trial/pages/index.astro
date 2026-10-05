@@ -1,0 +1,13 @@
+---
+import TrialLayout from '../TrialLayout.astro';
+import {trialClient, type TrialArticle} from '../client';
+let articles: TrialArticle[] = [];
+let unavailable = false;
+try { articles = await trialClient().fetch('*[_type == "portfolioTrialArticle"] | order(publishedAt desc){_id,title,slug,description}'); }
+catch { unavailable = true; }
+---
+<TrialLayout title="Writing trial">
+  <section class="intro"><p class="eyebrow">Sanity · Writing trial</p><h1>Building systems.<br />Sharing <em>what I learn.</em></h1><p class="deck">A small space to test writing, media, previewing, and publishing.</p></section>
+  <div class="trial-grid"><section class="featured"><p class="eyebrow">Start here</p><h2><a href="/trial/article/sample/">From video upload to HLS playback</a></h2><p>A local sample with Java code, an architecture diagram, a table, and a callout.</p><a href="/trial/article/sample/">Read the sample →</a></section><section class="panel"><h2>Try the editor</h2><ol><li>Open Studio and sign in.</li><li>Open the seeded draft, or create a trial article.</li><li>Write, add media, and open Preview.</li><li>Publish to test the Sanity-to-page connection.</li></ol><a href="http://localhost:3333" target="_blank" rel="noopener noreferrer">Open Studio ↗</a></section></div>
+  <section class="published"><h2>Published trial articles</h2>{unavailable ? <p role="status">Sanity could not be reached. The local sample remains available. Check the dataset and server connection.</p> : articles.length ? <ul>{articles.filter((article) => article.slug?.current).map((article) => <li><a href={`/trial/article/${encodeURIComponent(article.slug.current)}/`}>{article.title}</a><p>{article.description}</p></li>)}</ul> : <p>No trial articles published yet. Publish one in Studio, then reload this page.</p>}</section>
+</TrialLayout>

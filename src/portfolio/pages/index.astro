@@ -1,0 +1,7 @@
+---
+import HomePage from '../components/HomePage.astro';
+import {getCatalog} from '../content';
+const {data, unavailable} = await getCatalog();
+if (unavailable) Astro.response.status = 503;
+---
+<HomePage data={data} unavailable={unavailable} />

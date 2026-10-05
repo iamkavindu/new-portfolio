@@ -8,22 +8,43 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "node scripts/build.mjs",
     "preview": "astro preview",
     "astro": "astro",
-    "check": "astro check"
+    "check": "astro check --tsconfig tsconfig.portfolio.json",
+    "trial:dev": "astro dev --config astro.trial.config.mjs --host 127.0.0.1",
+    "trial:build": "astro build --config astro.trial.config.mjs",
+    "studio:dev": "npm --prefix studio run dev",
+    "studio:build": "npm --prefix studio run build",
+    "trial:test": "node --experimental-strip-types --test trial/tests/*.test.ts",
+    "trial:smoke": "node trial/tests/http-smoke.mjs",
+    "portfolio:dev": "astro dev --config astro.portfolio.config.mjs --host 127.0.0.1",
+    "portfolio:build": "astro build --config astro.portfolio.config.mjs",
+    "portfolio:check": "astro check --config astro.portfolio.config.mjs --tsconfig tsconfig.portfolio.json",
+    "portfolio:smoke": "node portfolio/tests/http-smoke.mjs",
+    "portfolio:demo": "node portfolio/tests/demo.mjs",
+    "build:site": "astro build",
+    "production:test:build": "astro build --config astro.public-test.config.mjs",
+    "production:smoke": "node portfolio/tests/production-smoke.mjs"
   },
   "dependencies": {
+    "@astrojs/netlify": "^8.2.6",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
+    "@portabletext/to-html": "^6.0.0",
+    "@portabletext/types": "^4.0.2",
+    "@sanity/client": "^8.9.0",
+    "@sanity/image-url": "^2.1.1",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.1.5",
     "satori": "^0.18.3",
     "sharp": "^0.34.4",
+    "shiki": "^4.5.0",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.7",
+    "@astrojs/node": "^11.1.6",
     "typescript": "~5.9.2"
   }
 }

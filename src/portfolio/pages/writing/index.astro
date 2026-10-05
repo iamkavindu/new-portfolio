@@ -1,0 +1,16 @@
+---
+import Layout from '../../components/Layout.astro';
+import Cards from '../../components/Cards.astro';
+import Empty from '../../components/Empty.astro';
+import {getCatalog} from '../../content';
+const {data, unavailable} = await getCatalog();
+if (unavailable) Astro.response.status = 503;
+const topics = [...new Set(data.articles.flatMap((article) => article.tags || []))].sort();
+const selected = Astro.url.searchParams.get('topic');
+const entries = selected ? data.articles.filter((article) => article.tags?.includes(selected)) : data.articles;
+---
+<Layout title="Writing" profile={data.profile} settings={data.settings} description="Notes, explanations, and lessons from building software.">
+<header class="page-heading"><p class="eyebrow">The notebook</p><h1>Writing<span class="accent">.</span></h1><p class="intro">Ideas worth working through. Lessons worth writing down.</p></header>
+{topics.length > 0 && <nav class="topics" aria-label="Filter articles by topic"><a href="/writing/" aria-current={!selected ? 'page' : undefined}>All writing</a>{topics.map((topic) => <a href={`/writing/?topic=${encodeURIComponent(topic)}`} aria-current={selected === topic ? 'page' : undefined}>{topic}</a>)}</nav>}
+{entries.length ? <Cards entries={entries} numbered /> : <Empty unavailable={unavailable} message={selected ? 'No articles match this topic. Choose All writing to see everything.' : 'New articles will appear here as they are published.'} />}
+</Layout>

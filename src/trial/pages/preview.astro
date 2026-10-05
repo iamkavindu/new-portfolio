@@ -1,0 +1,16 @@
+---
+import ArticleView from '../ArticleView.astro';
+import TrialLayout from '../TrialLayout.astro';
+import {getTrialArticle, type TrialArticle} from '../client';
+import {previewCookie, validSession} from '../auth';
+const secret = process.env.SANITY_PREVIEW_SECRET || import.meta.env.SANITY_PREVIEW_SECRET || '';
+if (!validSession(Astro.cookies.get(previewCookie)?.value, secret)) {
+  return Astro.redirect(`/trial/access/?next=${encodeURIComponent(Astro.url.pathname)}`, 303);
+}
+let article: TrialArticle | null = null;
+let error = false;
+try { article = await getTrialArticle(Astro.params.slug || '', true); }
+catch { error = true; }
+if (!article) Astro.response.status = error ? 503 : 404;
+---
+{article ? <ArticleView article={article} mode="draft" /> : <TrialLayout title="Draft preview unavailable"><section class="intro"><h1>{error ? 'Preview connection unavailable.' : 'Draft not found.'}</h1><p>{error ? 'Check the server-side Viewer token and dataset connection, then refresh.' : 'Generate the article URL in Studio and wait for changes to save, then refresh.'}</p><a href="/trial/">Back to trial</a></section></TrialLayout>}

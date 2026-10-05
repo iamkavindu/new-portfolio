@@ -1,0 +1,10 @@
+---
+import EntryPage from '../../components/EntryPage.astro';
+import Layout from '../../components/Layout.astro';
+import Empty from '../../components/Empty.astro';
+import {getCatalog, linkedArticles} from '../../content';
+const {data, unavailable} = await getCatalog();
+const entry = data.projects.find((project) => project.slug.current === Astro.params.slug);
+if (!entry) Astro.response.status = unavailable ? 503 : 404;
+---
+{entry ? <EntryPage entry={entry} related={linkedArticles(entry, data.articles)} profile={data.profile} settings={data.settings} /> : <Layout title={unavailable ? 'Temporarily unavailable' : 'Project not found'}><header class="page-heading"><h1>{unavailable ? 'A brief interruption.' : 'Project not found.'}</h1></header><Empty unavailable={unavailable} message="This project may have moved or is no longer published." /></Layout>}
