@@ -3,6 +3,7 @@ import {structureTool} from 'sanity/structure';
 import {codeInput} from '@sanity/code-input';
 import {article, callout, trialTable, trialTableRow} from './schema';
 import {contentModels, singletonTypes} from './contentModels';
+import {ContentPreview} from './ContentPreview';
 import {ArticlePreview} from './ArticlePreview';
 
 export default defineConfig({
@@ -24,7 +25,7 @@ export default defineConfig({
       defaultDocumentNode: (S, {schemaType}) => schemaType === 'portfolioTrialArticle' ? S.document().views([
         S.view.form().title('Write'),
         S.view.component(ArticlePreview).title('Preview'),
-      ]) : S.document().views([S.view.form()]),
+      ]) : S.document().views([S.view.form().title('Edit'), S.view.component(ContentPreview).title('Preview')]),
     }),
     codeInput(),
   ],

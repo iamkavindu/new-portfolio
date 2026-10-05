@@ -8,10 +8,10 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "node scripts/build.mjs",
     "preview": "astro preview",
     "astro": "astro",
-    "check": "astro check",
+    "check": "astro check --tsconfig tsconfig.portfolio.json",
     "trial:dev": "astro dev --config astro.trial.config.mjs --host 127.0.0.1",
     "trial:build": "astro build --config astro.trial.config.mjs",
     "studio:dev": "npm --prefix studio run dev",
@@ -22,9 +22,13 @@
     "portfolio:build": "astro build --config astro.portfolio.config.mjs",
     "portfolio:check": "astro check --config astro.portfolio.config.mjs --tsconfig tsconfig.portfolio.json",
     "portfolio:smoke": "node portfolio/tests/http-smoke.mjs",
-    "portfolio:demo": "node portfolio/tests/demo.mjs"
+    "portfolio:demo": "node portfolio/tests/demo.mjs",
+    "build:site": "astro build",
+    "production:test:build": "astro build --config astro.public-test.config.mjs",
+    "production:smoke": "node portfolio/tests/production-smoke.mjs"
   },
   "dependencies": {
+    "@astrojs/netlify": "^8.2.6",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
     "@portabletext/to-html": "^6.0.0",

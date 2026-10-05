@@ -1,17 +1,28 @@
 [build]
-  command = "npm run build"
+  command = "npm --prefix studio ci && npm run build"
   publish = "dist"
 
 [build.environment]
   NODE_VERSION = "22"
 
+# Sanity's hosted editor needs its SPA fallback; public pages use Astro SSR.
+[[redirects]]
+  from = "/studio/*"
+  to = "/studio/index.html"
+  status = 200
+
 [[headers]]
   for = "/*"
   [headers.values]
     X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
+    Referrer-Policy = "same-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-    X-Frame-Options = "DENY"
+
+[[headers]]
+  for = "/studio/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Content-Security-Policy = "frame-ancestors 'self'"
 
 [[headers]]
   for = "/_astro/*"

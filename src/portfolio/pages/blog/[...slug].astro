@@ -1,0 +1,11 @@
+---
+import Layout from '../../components/Layout.astro';
+import {getCatalog, entryPath} from '../../content';
+const slug = Astro.params.slug || '';
+const {data, unavailable} = await getCatalog();
+const replacement = data.articles.find((article) => article.slug.current === slug || article.legacySlugs?.includes(slug));
+if (replacement) return Astro.redirect(entryPath(replacement), 301);
+const retired = ['generating-typescript-from-java-records', 'building-a-video-upload-and-hls-streaming-pipeline', 'guides', 'guides/java-typescript', 'guides/video-streaming'].includes(slug);
+Astro.response.status = unavailable ? 503 : retired ? 410 : 404;
+---
+<Layout title={unavailable ? 'Temporarily unavailable' : retired ? 'Article retired' : 'Article not found'}><section class="page-heading"><p class="eyebrow">From the archive</p><h1>{unavailable ? 'A brief interruption.' : retired ? 'A new chapter.' : 'Article not found.'}</h1><p class="intro">{unavailable ? 'Please try again shortly.' : retired ? 'This older article has been retired while the notebook is rebuilt. Explore the current writing below.' : 'This article may have moved or the link may be incomplete.'}</p><a class="button" href="/writing/">Explore the writing ↗</a></section></Layout>

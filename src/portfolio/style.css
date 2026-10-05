@@ -801,3 +801,19 @@ main:focus {
     white-space:pre-wrap;
   }
 }
+.preview-notice {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  margin: 25px 0 0;
+  background: var(--lime);
+  border: 1px solid var(--line);
+  font-size: .8rem;
+}
+.preview-notice p {margin: 5px 0;}
+.preview-login {display: grid; gap: 12px; max-width: 400px; margin: 25px 0;}
+.preview-login input {font: inherit; padding: 12px; border: 1px solid var(--line); background: var(--white); width: 100%;}
+.preview-login button {cursor: pointer;}
+@media(max-width:680px) {.preview-notice {flex-direction: column; align-items: flex-start;}}

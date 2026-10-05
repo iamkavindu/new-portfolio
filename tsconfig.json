@@ -9,13 +9,15 @@
   },
   "include": [
     ".astro/types.d.ts",
-    "**/*"
+    "src/portfolio/**/*",
+    "src/trial/**/*"
   ],
   "exclude": [
     "dist",
     "dist-trial",
     "studio",
     "trial/tests",
-    "dist-portfolio"
+    "dist-portfolio",
+    "dist-public-test"
   ]
 }

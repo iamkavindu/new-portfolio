@@ -1,5 +1,7 @@
 # Portfolio content foundation
 
+For the current application and deployment workflow, see [Production publishing](PRODUCTION-PUBLISHING.md). The original review steps below describe the pre-production iteration.
+
 This change introduces the permanent authoring models. It does not replace the live website or connect the new document types to Astro pages yet. Publishing these documents stores them in Sanity; it does not deploy a page. The existing Writing trial retains its working preview.
 
 ## Editor sections
