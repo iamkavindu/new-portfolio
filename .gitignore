@@ -19,3 +19,6 @@ node_modules/
 # isolated CMS trial
 dist-trial/
 studio/.sanity/
+
+# redesign review build
+dist-portfolio/

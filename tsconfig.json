@@ -15,6 +15,7 @@
     "dist",
     "dist-trial",
     "studio",
-    "trial/tests"
+    "trial/tests",
+    "dist-portfolio"
   ]
 }

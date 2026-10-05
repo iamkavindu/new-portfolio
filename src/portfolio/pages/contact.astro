@@ -1,0 +1,14 @@
+---
+import Layout from '../components/Layout.astro';
+import Empty from '../components/Empty.astro';
+import {getCatalog} from '../content';
+import {safeHref} from '../../trial/render';
+const {data, unavailable} = await getCatalog();
+if (unavailable) Astro.response.status = 503;
+const settings = data.settings;
+const email = settings?.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(settings.email) ? settings.email : null;
+---
+<Layout title="Contact" name={data.profile?.name} description="Get in touch with Kavindu Perera.">
+<section class="contact-page"><div><p class="eyebrow">Say hello</p><h1>Good things start <br />with a conversation<span class="accent">.</span></h1><p class="intro preserve-lines">{settings?.contactIntroduction || 'Have a question about something I wrote, a project to discuss, or an opportunity to share? I’d like to hear from you.'}</p>{email && <a class="email-link" href={`mailto:${email}`}>{email} ↗</a>}</div><aside class="contact-card"><p class="eyebrow">Elsewhere on the internet</p>{settings?.socialLinks?.length ? <ul>{settings.socialLinks.map((link) => <li><a href={safeHref(link.url)}>{link.title}<span aria-hidden="true">↗</span></a></li>)}</ul> : <p>Public profile links will appear here soon.</p>}<span class="note-symbol" aria-hidden="true">↗</span></aside></section>
+{unavailable && <Empty unavailable message="" />}
+</Layout>

@@ -1,0 +1,23 @@
+---
+import Layout from './Layout.astro';
+import Cards from './Cards.astro';
+import {displayDate, imageUrl, type Entry} from '../content';
+import {renderBody, headingId, safeHref} from '../../trial/render';
+interface Props {entry: Entry; related: Entry[]; name?: string;}
+const {entry, related, name} = Astro.props;
+const isArticle = entry._type === 'article';
+const body = entry.body || [];
+const html = await renderBody(body);
+const headings = body.filter((block) => block._type === 'block' && block.style === 'h2').map((block) => ({id: headingId(block._key), text: block.children?.map((span) => span.text || '').join('') || ''}));
+const words = body.filter((block) => block._type === 'block').flatMap((block) => block.children || []).map((span) => span.text || '').join(' ').trim().split(/\s+/).filter(Boolean).length;
+---
+<Layout title={entry.seo?.title || entry.title} description={entry.seo?.description || entry.description} name={name}>
+<article>
+<header class="page-heading article-heading"><a class="back-link" href={isArticle ? '/writing/' : '/work/'}>← {isArticle ? 'All writing' : 'All projects'}</a><p class="eyebrow">{(isArticle ? entry.tags : entry.technologies)?.join(' / ') || (isArticle ? 'Field notes' : 'Project')}</p><h1>{entry.title}</h1><p class="intro">{entry.description}</p>
+{isArticle ? <p class="byline">{name || 'Kavindu Perera'}{displayDate(entry.publishedAt) && <> · <time datetime={entry.publishedAt}>{displayDate(entry.publishedAt)}</time></>} · {Math.max(1, Math.ceil(words / 200))} min read</p> : <div class="project-links">{entry.repositoryUrl && <a class="button" href={safeHref(entry.repositoryUrl)}>View source ↗</a>}{entry.demoUrl && <a class="button secondary" href={safeHref(entry.demoUrl)}>Live demo ↗</a>}{entry.status && <span class="pill">{({'in-progress': 'In progress', available: 'Available', archived: 'Archived'} as Record<string, string>)[entry.status] || entry.status}</span>}</div>}
+</header>
+{imageUrl(entry.coverImage) && <img class="cover-image" src={imageUrl(entry.coverImage)} alt={entry.coverImage?.alt || ''} />}
+<div class="reading-grid"><div class="article-body" set:html={html} />{headings.length > 0 && <aside class="toc"><p class="eyebrow">On this page</p>{headings.map((heading) => <a href={`#${heading.id}`}>{heading.text}</a>)}</aside>}</div>
+</article>
+{related.length > 0 && <section class="section"><div class="section-heading"><div><p class="eyebrow">Keep exploring</p><h2>{isArticle ? 'Behind this article' : 'Writing about this project'}</h2></div></div><Cards entries={related} /></section>}
+</Layout>

@@ -1,0 +1,17 @@
+---
+import Layout from '../components/Layout.astro';
+import Cards from '../components/Cards.astro';
+import Empty from '../components/Empty.astro';
+import {getCatalog, featured} from '../content';
+const {data, unavailable} = await getCatalog();
+if (unavailable) Astro.response.status = 503;
+const {settings, profile} = data;
+const articles = featured(data.articles, settings?.featuredArticles);
+const projects = featured(data.projects, settings?.featuredProjects, 2);
+---
+<Layout title="Home" name={profile?.name} description={settings?.seo?.description || settings?.homeIntroduction}>
+<section class="hero"><div><p class="eyebrow">{profile?.headline || 'Software engineer · Writer · Builder'}</p><h1>{settings?.homeTitle || 'Building things. Sharing what I learn.'}</h1><p class="intro">{settings?.homeIntroduction || 'Notes on backend engineering, the decisions behind the code, and projects that put ideas into practice.'}</p><a class="button" href="/writing/">Explore the writing <span aria-hidden="true">↗</span></a></div><aside class="hero-note"><span class="note-symbol" aria-hidden="true">✳</span><p class="eyebrow">The thinking behind the code</p><p class="serif">Curiosity, <br />made practical.</p><a href="/about/">Meet the person behind it ↗</a></aside></section>
+<section class="section"><div class="section-heading"><div><p class="eyebrow">01 / The notebook</p><h2>Selected writing</h2></div><a href="/writing/">All writing ↗</a></div>{articles.length ? <Cards entries={articles} numbered /> : <Empty unavailable={unavailable} message="The notebook is starting a new chapter. Articles will appear here as they are published." />}</section>
+<section class="section"><div class="section-heading"><div><p class="eyebrow">02 / From idea to implementation</p><h2>Things I’ve built</h2></div><a href="/work/">All projects ↗</a></div>{projects.length ? <Cards entries={projects} /> : <Empty unavailable={unavailable} message="Project stories are on their way." />}</section>
+<section class="contact-strip"><p class="eyebrow">A conversation starts somewhere</p><h2>Have an interesting problem?</h2><a class="button" href="/contact/">Get in touch ↗</a></section>
+</Layout>

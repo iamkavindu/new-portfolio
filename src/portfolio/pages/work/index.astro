@@ -1,0 +1,12 @@
+---
+import Layout from '../../components/Layout.astro';
+import Cards from '../../components/Cards.astro';
+import Empty from '../../components/Empty.astro';
+import {getCatalog} from '../../content';
+const {data, unavailable} = await getCatalog();
+if (unavailable) Astro.response.status = 503;
+---
+<Layout title="Work" name={data.profile?.name} description="Personal projects, experiments, and the engineering decisions behind them.">
+<header class="page-heading"><p class="eyebrow">The workshop</p><h1>Ideas, built<span class="accent">.</span></h1><p class="intro">Personal projects and experiments. A closer look at what I made, how it works, and what I learned.</p></header>
+{data.projects.length ? <Cards entries={data.projects} numbered /> : <Empty unavailable={unavailable} message="Project stories are on their way." />}
+</Layout>

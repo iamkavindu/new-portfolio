@@ -1,0 +1,5 @@
+---
+interface Props {unavailable?: boolean; message: string;}
+const {unavailable = false, message} = Astro.props;
+---
+<div class="empty" role={unavailable ? 'status' : undefined}><p>{unavailable ? 'Content is temporarily unavailable. Please try again shortly.' : message}</p><a href="/">Back to home ↗</a></div>

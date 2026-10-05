@@ -17,7 +17,12 @@
     "studio:dev": "npm --prefix studio run dev",
     "studio:build": "npm --prefix studio run build",
     "trial:test": "node --experimental-strip-types --test trial/tests/*.test.ts",
-    "trial:smoke": "node trial/tests/http-smoke.mjs"
+    "trial:smoke": "node trial/tests/http-smoke.mjs",
+    "portfolio:dev": "astro dev --config astro.portfolio.config.mjs --host 127.0.0.1",
+    "portfolio:build": "astro build --config astro.portfolio.config.mjs",
+    "portfolio:check": "astro check --config astro.portfolio.config.mjs --tsconfig tsconfig.portfolio.json",
+    "portfolio:smoke": "node portfolio/tests/http-smoke.mjs",
+    "portfolio:demo": "node portfolio/tests/demo.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",

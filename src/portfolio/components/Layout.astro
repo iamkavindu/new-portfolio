@@ -1,0 +1,19 @@
+---
+import '../style.css';
+interface Props {title: string; description?: string; name?: string;}
+const {title, description = 'Writing and projects by Kavindu Perera.', name = 'Kavindu Perera'} = Astro.props;
+const path = Astro.url.pathname;
+const navigation = [['Home', '/'], ['Writing', '/writing/'], ['Work', '/work/'], ['About / CV', '/about/'], ['Contact', '/contact/']];
+---
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="description" content={description} /><link rel="icon" type="image/svg+xml" href="/favicon.svg" /><meta name="robots" content="noindex, nofollow" /><title>{title} · {name}</title></head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="shell">
+<header class="site-header"><a class="brand" href="/" aria-label={`${name}, home`}>{name}<span aria-hidden="true">.</span></a><nav aria-label="Main navigation">{navigation.map(([label, href]) => <a href={href} aria-current={(href === '/' ? path === href : path.startsWith(href)) ? 'page' : undefined}>{label}</a>)}</nav></header>
+<main id="main" tabindex="-1"><slot /></main>
+<footer><a class="brand" href="/">{name}<span>.</span></a><p>Ideas, experiments, and the things I build.</p><a href="/contact/">Let’s talk <span aria-hidden="true">↗</span></a></footer>
+</div>
+</body>
+</html>
